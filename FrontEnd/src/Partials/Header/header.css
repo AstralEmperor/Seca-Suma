@@ -1,0 +1,21 @@
+.header{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    padding-inline:2rem;
+}
+
+.header__ul{
+    display:flex;
+    gap:3rem;
+    list-style:none;
+    padding-block:1rem;
+}
+.header__listItem > a{
+    text-decoration:none;
+    color:var(--base-txt-clr);
+    font-weight:600;
+}
+.hr{
+   background-color: var(--border-nav);
+}

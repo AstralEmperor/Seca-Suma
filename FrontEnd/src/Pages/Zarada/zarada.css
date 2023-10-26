@@ -1,0 +1,48 @@
+
+.zarada{
+    margin-block:2rem;
+    margin-inline:2rem;
+}
+.zarada__h1Wrap{
+    width:100%;
+    text-align:center;
+}
+.zarada__h1{
+    font-size:1.75rem;
+    margin-bottom:2rem;
+}
+.table{
+    width:100%;
+    text-align:center;
+    align-content:center;
+    border-spacing:0;
+}
+.zarada__thead{
+    background-color:var(--tableHeader);
+    color:var(--body);
+}
+td,th{
+    padding-block:0.25rem;
+}
+th{
+    font-size:var(--table-header-Font);
+}
+td{
+    height:1.5rem;
+    width:1rem;
+    font-size:var(--table-txt-Font);
+}
+td > img{
+    width:20%;
+    height:100%;
+}
+td > img:hover{
+    cursor:pointer;
+}
+tr:nth-child(even){
+    background-color:var(--tableRow2);
+}
+.zarada__row{
+    width:100%;
+    background-color:var(--tableRow1);
+}
