@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
 <head>
-   <link href="/php-apps/SEČA-ŠUMA/style.css" type="text/css" rel="stylesheet">
-   <link href="/php-apps/SEČA-ŠUMA/FrontEnd/src/Partials/Footer/footer.css" type="text/css" rel="stylesheet">
+   <link href="/SEČA-ŠUMA/style.css" type="text/css" rel="stylesheet">
+   <link href="/SEČA-ŠUMA/FrontEnd/src/Partials/Footer/footer.css" type="text/css" rel="stylesheet">
 </head>
 <body>
     <div class="footer">

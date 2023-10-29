@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<konekcija>
+    <host>localhost</host>
+    <korisnik>root</korisnik>
+    <sifra></sifra>
+    <prefiks_baze_podataka></prefiks_baze_podataka>
+    <naziv_baze_podataka>sume</naziv_baze_podataka>
+</konekcija>
