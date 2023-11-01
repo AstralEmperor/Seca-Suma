@@ -7,13 +7,12 @@ if($connection->connect_error){
 
 $sql="SELECT NazivDrveta, VrstaRada, Cena from TROSKOVI";
 $result = $connection-> query($sql);
-$id = 1;
-
+$num_result = 1;
 // must pull at least 1 row
 if($result-> num_rows > 0){
     while($row = $result->fetch_assoc()){
         echo             
-            "<tr class='troskovi__row'><td>". $id++. 
+            "<tr class='troskovi__row'><td>". $num_result++. 
             "</td><td>". $row["NazivDrveta"].
             "</td><td>". $row["VrstaRada"]."</td>".
             "</td><td>". $row["Cena"]."</td>",

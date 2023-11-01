@@ -30,7 +30,7 @@
             </tr>
         </thead>
         <tbody class="troskovi__tableBody">
-            <?php  include $_SERVER['DOCUMENT_ROOT'] . "/SEČA-ŠUMA/BackEnd/Classes/konekcijaTroskovi.php" ?>
+            <?php include $_SERVER['DOCUMENT_ROOT'] . "/SEČA-ŠUMA/BackEnd/Classes/konekcijaTroskovi.php"?>
         </tbody>
     </table>
 </section>

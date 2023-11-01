@@ -7,13 +7,13 @@ if($connection->connect_error){
 
 $sql="SELECT doprinosID, VrstaDrveta, PovršinaSume, Datum, Neto from prethodnesece";
 $result = $connection-> query($sql);
-$id = 1;
+$num_result = 1;
 
 // must pull at least 1 row
 if($result-> num_rows > 0){
     while($row = $result->fetch_assoc()){
         echo             
-            "<tr class='zarada__row'><td>". $id++. 
+            "<tr class='zarada__row'><td>". $num_result++.
             "</td><td>". $row["VrstaDrveta"]."</td>",
             "</td><td>". $row["PovršinaSume"]."</td>",
             "</td><td>". $row["Datum"]."</td>",

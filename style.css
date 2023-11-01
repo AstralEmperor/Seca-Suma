@@ -15,10 +15,15 @@
     --tableRow1:rgb(166, 241, 185);
     --tableRow2:rgb(125, 196, 142);
     --selected:rgb(2, 129, 34);
+    --form:rgb(255, 255, 255);
+    --covered:rgba(41, 40, 40, 0.5);
     --footer:rgb(238, 238, 238);
+    --button-primary-border:black;
+    --search-wrap:rgb(1, 99, 1);
    /* ------------- FONTS ------------- */
     --table-txt-Font:0.8rem;
     --table-header-Font:0.9rem;
+    --label-txt-font:0.9rem;
 }
 html{
     display:flex;
@@ -37,6 +42,19 @@ body{
     border-radius:20px;
     background-color:var(--body);
     position:relative;
+}
+.button{
+    border-radius:5px;
+    border:1px solid var(--button-primary-border);
+    padding-block:0.25em;
+    padding-inline:1em;
+}
+.button:hover{
+    cursor:pointer;
+}
+.input{
+    padding-inline:0.2rem;
+    padding-block:0.15rem;
 }
 .selected-link{
     color:var(--selected);
