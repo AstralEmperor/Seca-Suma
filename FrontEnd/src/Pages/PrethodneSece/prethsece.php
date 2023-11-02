@@ -43,11 +43,12 @@
             </tr>
         </thead>
         <tbody class="zarada__tableBody">
-            <?php include $_SERVER['DOCUMENT_ROOT'] . "/SEČA-ŠUMA/BackEnd/Classes/konekcijaPrethodneSece.php" ?>
+            <?php include $_SERVER['DOCUMENT_ROOT'] . "/SEČA-ŠUMA/BackEnd/Classes/konekcijaPrethodneSece.php"?>
         </tbody>
     </table>
     <div class="zarada__formShow"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SEČA-ŠUMA/FrontEnd/src/Modals/PredhSece_noveSece/predhSece_dodajNovo.php"?></div>
 </section>
     <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SEČA-ŠUMA/FrontEnd/src/Partials/Footer/footer.php"?></footer>
 </body>
+<script src="prethsece.js"></script>
 </html>

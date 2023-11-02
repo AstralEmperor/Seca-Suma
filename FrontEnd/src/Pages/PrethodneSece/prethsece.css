@@ -56,6 +56,9 @@ tr:nth-child(even){
     z-index:100;
     inset:0;
 }
+.zarada__activeForm{
+    display:flex;
+}
 .zarada__optionsWrap{
     display:flex;
     flex-direction:column;
