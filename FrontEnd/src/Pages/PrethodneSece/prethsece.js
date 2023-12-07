@@ -1,7 +1,7 @@
 const addCancelBtn = document.querySelector('.addNew__cancel');
 const form = document.querySelector('.zarada__formShow');
 const openFormBtn= document.querySelector('.zarada__addNew');
-
+const addNewDataBtn = document.querySelector('.addNew__addBtn');
 function openForm(){
     openFormBtn.addEventListener('click', e =>{
         e.preventDefault();
@@ -16,11 +16,12 @@ function closeForm(){
         form.classList.remove('zarada__activeForm');
     })
 }
-openForm();
+closeForm();
 
-function closeFormOnStart(){
-    window.addEventListener('load', () => {
-        form.classList.remove('zarada__activeForm');
+function sendForm(){
+    addNewDataBtn.addEventListener('submit', e => {
+        e.preventDefault();
+        location.reload();
     })
 }
-closeFormOnStart();
+sendForm();

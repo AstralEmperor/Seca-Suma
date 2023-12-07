@@ -1,9 +1,6 @@
 <?php
 
-$connection = mysqli_connect("localhost","root","","sume");
-if($connection->connect_error){
-    die("Connection failed". $connection_error);
-}
+require 'Konekcija.php';
 
 $sql="SELECT NazivDrveta, VrstaRada, Cena from TROSKOVI";
 $result = $connection-> query($sql);
@@ -16,8 +13,8 @@ if($result-> num_rows > 0){
             "</td><td>". $row["NazivDrveta"].
             "</td><td>". $row["VrstaRada"]."</td>".
             "</td><td>". $row["Cena"]."</td>",
-            "</td><td><img src='/Seča-Šuma/FrontEnd/Assets/edit-text.png' alt='edit.png'></td>",
-            "</td><td><img src='/Seča-Šuma/FrontEnd/Assets/trash-can.png' alt='edit.png'></td></tr>";
+            "</td><td><img src='/SECA-SUMA/FrontEnd/Assets/edit-text.png' alt='edit.png'></td>",
+            "</td><td><img src='/SECA-SUMA/FrontEnd/Assets/trash-can.png' alt='edit.png'></td></tr>";
     }
 }else{
     echo "Nema rezultata";

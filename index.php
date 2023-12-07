@@ -3,8 +3,8 @@
     session_unset();
     session_destroy();
 
-    require $_SERVER['DOCUMENT_ROOT'] . "/SEČA-ŠUMA/BackEnd/Classes/BaznaKonekcija.php";
-    // $KonekcijaObject = new Konekcija('/SEČA-ŠUMA/BackEnd/Classes/BazniParamKonekcije.xml');
+    require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Classes/BaznaKonekcija.php";
+    // $KonekcijaObject = new Konekcija('/SECA-SUMA/BackEnd/Classes/BazniParamKonekcije.xml');
     // if($KonekcijaObject->konekcijaDB){
     //     echo 'Uspesna Konekcija';
     // }
@@ -26,10 +26,10 @@
     <title>Početna strana</title>
 </head>
 <body>
-    <?php require $_SERVER['DOCUMENT_ROOT'] . "/SEČA-ŠUMA/FrontEnd/src/Partials/Header/header.php"?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Partials/Header/header.php"?>
     <section class="index">
-            <img src="/SEČA-ŠUMA/FrontEnd/Assets/food-cutting-pic1.jpg" alt="woodcutting.jpg">
+            <img src="/SECA-SUMA/FrontEnd/Assets/food-cutting-pic1.jpg" alt="woodcutting.jpg">
     </section>
-    <footer class="footer"><?php require $_SERVER['DOCUMENT_ROOT'] . "/SEČA-ŠUMA/FrontEnd/src/Partials/Footer/footer.php"?></footer>
+    <footer class="footer"><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Partials/Footer/footer.php"?></footer>
 </body>
 </html>
