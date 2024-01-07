@@ -10,7 +10,7 @@
         <li class="header__listItem"><a href="/SECA-SUMA/FrontEnd/src/Pages/Troskovi/troskovi.php">Troškovi</a></li>
    </ul>
    <ul class="header__ul">
-      <li class="header__listItem"><a id="login__link" href="">Uloguj Se</a></li>
+      <li class="header__listItem"></li>
    </ul>
 </nav>
 <hr class="hr">

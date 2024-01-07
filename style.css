@@ -4,7 +4,7 @@
     box-sizing:border-box;
 }
 :root{
-    /* ------------- COLORS ------------- */
+    /* ------------- BOJE ------------- */
     --base-txt-clr:#1d1d1d;
     --body-shadow:#757575;
     --html-bckground:rgb(41, 40, 40);
@@ -20,7 +20,7 @@
     --footer:rgb(238, 238, 238);
     --button-primary-border:black;
     --search-wrap:rgb(1, 99, 1);
-   /* ------------- FONTS ------------- */
+   /* ------------- FONTOVI ------------- */
     --table-txt-Font:0.8rem;
     --table-header-Font:0.9rem;
     --label-txt-font:0.9rem;
@@ -58,4 +58,57 @@ body{
 }
 .selected-link{
     color:var(--selected);
+}
+/* DUGME ZA PONISTENJE */
+.dodajNovi__cancelWrap{
+    position:absolute;
+    top:0;
+    right:0;
+    margin-right:5px;
+    margin-top:5px;
+}
+.dodajNovi__cancel{
+    width:1rem;
+    height:1rem;
+    border:none;
+    background-color:transparent;
+}
+.dodajNovi__cancel:hover{
+    cursor:pointer;
+}
+.dodajNovi__cancel > img{
+    width:100%;
+    height:100%;
+}
+
+.login__cancelWrap{
+    position:absolute;
+    top:0;
+    right:0;
+    margin-right:5px;
+    margin-top:5px;
+}
+.login__cancel{
+    width:1rem;
+    height:1rem;
+    border:none;
+    background-color:transparent;
+}
+.login__cancel:hover{
+    cursor:pointer;
+}
+.login__cancel > img{
+    width:100%;
+    height:100%;
+}
+.login__wrapper{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+    background-color:var(--covered);
 }

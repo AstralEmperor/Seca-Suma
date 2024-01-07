@@ -20,7 +20,7 @@ public $Neto;
     {
         $KriterijumFiltriranja = "VrstaDrveta ='".$doprinosID."'";
         $StaraVrednostUkBrSeca = $this-> DajVrednostJednogPoljaPrvogZapisa ('UkupanBrojSeca',
-    $KriterijumFiltriranja, 'UkupanBrojSeca');
+        $KriterijumFiltriranja, 'UkupanBrojSeca');
 
         $NovaVrednostUkBrSeca = $StaraVrednostUkBrSeca + 1;
 

@@ -1,27 +1,31 @@
-const addCancelBtn = document.querySelector('.addNew__cancel');
-const form = document.querySelector('.zarada__formShow');
-const openFormBtn= document.querySelector('.zarada__addNew');
-const addNewDataBtn = document.querySelector('.addNew__addBtn');
-function openForm(){
-    openFormBtn.addEventListener('click', e =>{
+const izlazBtn = document.querySelector('.dodajNovi__cancel');
+const forma = document.querySelector('.zarada__formShow');
+const otvaranjeFormeBtn= document.querySelector('.zarada__addNew');
+const dodajNovePodatkeBtn = document.querySelector('.dodajNovi__addBtn');
+
+// izvrsava otvaranje forme za dodavanje nove sece, preventira reload(default behaviour)
+function otvoriFormu(){
+    otvaranjeFormeBtn.addEventListener('click', e =>{
         e.preventDefault();
-        form.classList.add('zarada__activeForm');
+        forma.classList.add('zarada__activeForm');
     })
 }
-openForm();
+otvoriFormu();
 
-function closeForm(){
-    addCancelBtn.addEventListener('click', e =>{
+// izvrsava zatvaranje forme za dodavanje nove sece, preventira reload(default behaviour)
+function zatvoriFormu(){
+    izlazBtn.addEventListener('click', e =>{
         e.preventDefault();
-        form.classList.remove('zarada__activeForm');
+        forma.classList.remove('zarada__activeForm');
     })
 }
-closeForm();
+zatvoriFormu();
 
-function sendForm(){
-    addNewDataBtn.addEventListener('submit', e => {
+// izvrsava slanje forme za dodavanje nove sece, preventira reload(default behaviour)
+function posaljiFormu(){
+    dodajNovePodatkeBtn.addEventListener('submit', e => {
         e.preventDefault();
         location.reload();
     })
 }
-sendForm();
+posaljiFormu();

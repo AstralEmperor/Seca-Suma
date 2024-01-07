@@ -1,0 +1,32 @@
+
+#login{
+    position:relative;
+    display:flex;
+    width:fit-content;
+    height:fit-content;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:1rem;
+    padding-inline:1rem;
+    padding-top:2.5rem;
+    padding-bottom:1.5rem;
+    background-color:var(--form);
+}
+.login__inputField{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+}
+.login__usernameWrap,
+.login__passwordWrap{
+    display:flex;
+    flex-direction:column;
+}
+label{
+    font-size: var(--label-txt-font);
+}
+input{
+    padding-block:0.25rem;
+    padding-inline:0.25rem
+}

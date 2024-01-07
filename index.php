@@ -29,7 +29,7 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Partials/Header/header.php"?>
     <section class="index">
             <img src="/SECA-SUMA/FrontEnd/Assets/food-cutting-pic1.jpg" alt="woodcutting.jpg">
-    </section>
+            </section>
     <footer class="footer"><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Partials/Footer/footer.php"?></footer>
 </body>
 </html>
