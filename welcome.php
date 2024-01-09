@@ -4,6 +4,14 @@
     session_destroy();
 
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php";
+	   // proverava informacije u sesiji za korisnika
+	   $korisnik=$_SESSION["korisnik"];
+      
+	  // ako korisnik nije prijavljen, vraca ga na pocetnu stranicu
+				if (!isset($korisnik))
+				{
+					header ('Location:index.php');
+				}	
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +28,9 @@
 </head>
 <body>
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/header.php"?>
+    <aside class="leviMeni"><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/LeviMeni/leviMeni.php" ?></aside>
     <section class="index">
+            <h1>Dobrošli!</h1>
             <img src="/SECA-SUMA/FrontEnd/Assets/food-cutting-pic1.jpg" alt="woodcutting.jpg">
             </section>
     <footer class="footer"><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>

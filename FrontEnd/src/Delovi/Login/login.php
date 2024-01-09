@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
 <link href="/SECA-SUMA/style.css" type="text/css" rel="stylesheet">
 <link href="/SECA-SUMA/FrontEnd/src/Partials/Login/login.css" type="text/css" rel="stylesheet">
-        <form id="login" action="/SECA-SUMA/FrontEnd/src/Modals/LoginProvera/loginProvera.php" method="POST">
+        <form id="login" action="/SECA-SUMA/FrontEnd/src/Modali/LoginProvera/loginProvera.php" method="POST">
             <div class="login__cancelWrap">
                 <button class="login__cancel"><img src="/SECA-SUMA/FrontEnd/Assets/cancel_icon.png" alt="cancel.png"></button>
             </div>

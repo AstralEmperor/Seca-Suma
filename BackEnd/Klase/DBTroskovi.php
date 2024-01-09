@@ -6,12 +6,11 @@ class DBTroskovi extends Tabela
     private $UspehKonekcijeNaDBMS;
     //
     public $NazivDrveta;
-    public $VrstaRada;
-    public $Cena;
+    public $UkupanTrosak;
 
     public function DajKolekcijuSvihTroskova()
     {
-        $SQL = "select * from `TROSKOVI` ORDER BY VrstaRada ASC";
+        $SQL = "select * from `TROSKOVI` ORDER BY NazivDrveta ASC";
         $this->UcitajSvePoUpitu($SQL);
         return $this->Kolekcija;
     }
@@ -24,8 +23,8 @@ class DBTroskovi extends Tabela
 
     public function DodajNoveTroskove()
     {
-        $SQL = "INSERT INTO `TROSKOVI` (NazivDrveta, VrstaRada, Cena)
-        VALUES ('$this->NazivDrveta', '$this->VrstaRada', '$this->Cena')";
+        $SQL = "INSERT INTO `TROSKOVI` (NazivDrveta, UkupanTrosak)
+        VALUES ('$this->NazivDrveta', '$this->UkupanTrosak')";
 
         $greska=$this->IzvrsiAktivanSQLUpit($SQL);
 
@@ -38,10 +37,10 @@ class DBTroskovi extends Tabela
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
     }
 
-    public function IzmeniTrosak($StariNazivDrveta, $NazivDrveta, $VrstaRada, $Cena)
+    public function IzmeniTrosak($StariUkupanTrosak, $NazivDrveta, $UkupanTrosak)
     {
-        $SQL = "UPDATE `TROSKOVI` SET NazivDrveta='".$NazivDrveta."',VrstaRada='".$VrstaRada."', Cena=".$Cena."
-        WHERE NazivDrveta='".$StariNazivDrveta."'";
+        $SQL = "UPDATE `TROSKOVI` SET NazivDrveta='".$NazivDrveta."', UkupanTrosak=".$UkupanTrosak."
+        WHERE UkupanTrosak='".$StariUkupanTrosak."'";
         
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
 

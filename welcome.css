@@ -4,5 +4,8 @@
     object-fit:cover;
 }
 h1{
+    position:absolute;
+    margin:0 auto;
+    inset:0;
     z-index:2;
 }

@@ -3,12 +3,12 @@ session_start();
     $loginUserName=$_POST['korisnickoIme'];
     $loginPassword=$_POST['sifra'];
 
-    require '/SECA-SUMA/BackEnd/Classes/BaznaKonekcija.php';
-    require '/SECA-SUMA/BackEnd/Classes/BaznaTabela.php';
-    require '/SECA-SUMA/BackEnd/Classes/DBKorisnik.php';
+    require '/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php';
+    require '/SECA-SUMA/BackEnd/Klase/BaznaTabela.php';
+    require '/SECA-SUMA/BackEnd/Klase/DBKorisnik.php';
 
     $korisnik = 'Nepoznat korisnik';
-    $objKonekcija = new Konekcija('/SECA-SUMA/BackEnd/Classes/BazniParamKonekcije.xml');
+    $objKonekcija = new Konekcija('/SECA-SUMA/BackEnd/Klase/BazniParamKonekcije.xml');
     $objKonekcija->connect();
     if($objKonekcija->konekcijaDB){
         $objKorisnik = new DBKorisnik($objKonekcija, 'korisnik');

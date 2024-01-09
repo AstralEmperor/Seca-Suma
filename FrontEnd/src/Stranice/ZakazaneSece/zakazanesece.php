@@ -9,18 +9,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/SECA-SUMA/style.css" type="text/css" rel="stylesheet">
-    <link href="prethsece.css" type="text/css" rel="stylesheet">
+    <link href="zakazaneSece.css" type="text/css" rel="stylesheet">
     <title>Zarada</title>
 </head>
 <body>
-    <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Partials/Header/header.php"?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/header.php"?>
 <section class="zarada">
     <div class="zarada__h1Wrap">
         <h1 class="zarada__h1">Evidencija Seča Šuma</h1>
     </div>
         <div class="zarada__optionsWrap">
         <div class="zarada__addBtnWrap">
-                <button class="zarada__addNew button">DODAJ IZVRŠENU SEČU</button>
+                <button class="zarada__addNew button">DODAJ ZAKAZANU SEČU</button>
             </div>
             <div class="zarada__pretraga">
                <label for="filterSece">Pretraga</label>
@@ -33,22 +33,24 @@
     <table class="table zarada__table">
         <thead class="zarada__thead">
             <tr class="zarada__headTr">
-                <th>ID</th>
+                <th>R.broj</th>
                 <th>Vrsta Drveta</th>
                 <th>Površina Šume(m3)</th>
                 <th>Datum</th>
                 <th>Neto($)</th>
+                <th>Mesto</th>
+                <th>Trošak($)</th>
                 <th>Edituj</th>
                 <th>Obriši</th>
             </tr>
         </thead>
         <tbody class="zarada__tableBody">
-            <?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Classes/konekcijaPrethodneSece.php"?>
+            <?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/konekcijaZakazaneSece.php"?>
         </tbody>
     </table>
-    <div class="zarada__formShow"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modals/PredhSece_noveSece/predhSece_dodajNovo.php"?></div>
+    <div class="zarada__formShow"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/ZakazaneSece_noveSece/zakazaneSece_dodajNovo.php"?></div>
 </section>
-    <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Partials/Footer/footer.php"?></footer>
+    <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>
 </body>
-<script src="prethsece.js"></script>
+<script src="zakazaneSece.js"></script>
 </html>
