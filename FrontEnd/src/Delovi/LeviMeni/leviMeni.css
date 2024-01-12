@@ -1,0 +1,19 @@
+.kontejner{
+    position:absolute;
+    background-color:var(--aside-bg);
+    height:100%;
+    color:var(--base-txt-clr);
+}
+.kontejner__ul{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    padding-block:5rem;
+    padding-inline:1.5rem;
+}
+.kontejner__ul > li{
+    list-style-type:none;
+}
+li > a{
+    text-decoration:none;
+}

@@ -1,5 +1,5 @@
 <?php
-class DBPredhSece extends Tabela 
+class DBZakazaneSece extends Tabela 
 {
 // ATRIBUTI
 private $bazapodataka;

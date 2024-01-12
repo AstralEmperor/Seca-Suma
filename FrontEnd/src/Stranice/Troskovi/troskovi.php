@@ -2,6 +2,25 @@
     session_start();
     session_unset();
     session_destroy();
+
+    require "/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php";
+    require "/SECA-SUMA/BackEnd/Klase/BaznaTabela.php"
+    $KonekcijaObject = new Konekcija('/SECA-SUMA/BackEnd/Klase/BazniParamKonekcije.xml');
+    $KonekcijaObject->connect();
+    // ako je uspesno ostvarena konekcija na DB uradi sledece
+    if($KonekcijaObject->konekcijaDB){
+        require "/SECA-SUMA/BackEnd/Klase/DBZakazaneSeceV.php";
+        $TroskoviViewObject = new DBZakazaneSece($KonekcijaObject,"Troskovi")
+        if(isset($_GET['filtriraj'])){
+            $filter=$_GET['filter'];
+            $TroskoviViewObject->DajSvePodatkeOPredhodnimSecama($filter);
+        }else{
+            $filter=null;
+            $TroskoviViewObject->DajSvePodatkeOPredhodnimSecama($filter);
+        }
+    }else{
+        echo"Neuspesna konekcija";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="sr">
@@ -18,21 +37,38 @@
     <div class="troskovi__h1Wrap">
         <h1 class="troskovi__h1">Troškovi</h1>
     </div>
-    <table class="table troskovi__table">
-        <thead class="troskovi__thead">
-            <tr class="troskovi__headTr">
-                <th>ID</th>
-                <th>Vrsta Drveta</th>
-                <th>Vrsta Rada</th>
-                <th>Cena($)</th>
-                <th>Edituj</th>
-                <th>Obriši</th>
-            </tr>
-        </thead>
-        <tbody class="troskovi__tableBody">
-            <?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/konekcijaTroskovi.php"?>
-        </tbody>
-    </table>
+    <?php
+            if ($TroskoviViewObject->BrojZapisa==0)
+            {
+                echo "nema zapisa!";
+            }
+        else
+            {
+               echo "UKUPAN BROJ ZAPISA:".$TroskoviViewObject->BrojZapisa;
+               echo' <table class="table troskovi__table">';
+               echo' <thead class="troskovi__thead">';
+               echo'     <tr class="troskovi__headTr">';
+               echo'         <th>R.Broj</th>';
+               echo'         <th>UkupanTrosak</th>';
+               echo'        <th>NazivDrveta</th>';
+               echo'     </tr>';
+               echo' </thead>';
+
+               for($RBZapisa = 0;$RBZapisa < $TroskoviViewObject->BrojZapisa;$RBZapisa++){
+                $UkupanTrosak=$TroskoviViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($TroskoviViewObject->Kolekcija, $RBZapisa,1);
+                $NazivDrveta=$TroskoviViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($TroskoviViewObject->Kolekcija, $RBZapisa,2);
+
+                echo'<tr>';
+                echo'<td>'$UkupanTrosak'</td>';
+                echo'<td>'$NazivDrveta'</td>';
+                echo'</tr>';
+                echo' <tbody class="troskovi__tableBody">';
+                echo' </tbody>';
+                echo'</table>';
+               }
+            }
+            $KonekcijaObject->disconnect();
+        ?>
 </section>
     <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>
 </body>
