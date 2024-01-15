@@ -7,7 +7,7 @@
     <div class="footer">
       <hr class="hr">
         <div class="footer__textCont">
-        <p class="footer__text">@Copyright: <em>Marko Kovačević</em></p>
+        <p class="footer__text">@Copyright: <em>Marko Kovačević IT 58/16</em></p>
         </div>
     </div>
 </body>
