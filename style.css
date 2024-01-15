@@ -21,11 +21,13 @@
     --button-primary-border:black;
     --search-wrap:rgb(1, 99, 1);
     --aside-bg:rgb(230, 230, 230);
+    --welcome-bg:rgba(4, 88, 4, 0.6);
    /* ------------- FONTOVI ------------- */
     --table-txt-Font:0.8rem;
     --table-header-Font:0.9rem;
     --label-txt-font:0.9rem;
     --aside-font:0.8rem;
+    --welcome-font:2.5rem;
 }
 html{
     display:flex;
@@ -38,12 +40,15 @@ html{
     letter-spacing:0.03em;
 }
 body{
-    width:min(100%,50rem);
+    width:min(100%,60rem);
     min-height:30rem;
     box-shadow:0px 0px 10px 1px var(--body-shadow);
     border-radius:20px;
     background-color:var(--body);
     position:relative;
+}
+aside{
+    z-index:20;
 }
 .button{
     border-radius:5px;

@@ -19,13 +19,7 @@
             <div class="dodajNovi__inputContainer">
                 <div class="dodajNovi__inputWrap">
                     <label for="Vrstadrveta" class="label">Vrsta Drveta</label>
-                    <select name="Vrstadrveta" id="Vrstadrveta" class="input"required>
-                        <option value="">--Vrsta drveta--</option>
-                        <option value="Bor">Bor</option>
-                        <option value="Smrca">Smrca</option>
-                        <option value="Bukva">Bukva</option>
-                        <option value="Cer">Cer</option>
-                    </select>
+                    <input name="Vrstadrveta" id="Vrstadrveta" type="text" class="input" placeholder="Vrsta Drveta" pattern="[A-Za-z]{1,20}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 20 karaktera')" oninput="setCustomValidity('')"  required>
                 </div>
                 <div class="dodajNovi__inputWrap">
                     <label for="Povrsina" class="label">Površina Šume(m3)</label>
@@ -33,7 +27,7 @@
                 </div>
                 <div class="dodajNovi__inputWrap">
                     <label for="Datum" class="label">Datum</label>
-                    <input name="Datum" id="Datum" class="input" type="date" min="2024-01-01"required>
+                    <input name="Datum" id="Datum" class="input" type="date" min="2024-01-01" oninvalid="this.setCustomValidity('Molimo vas unesite datum')" oninput="setCustomValidity('')" required>
                 </div>
                 <div class="dodajNovi__inputWrap">
                     <label for="Neto" class="label">Neto</label>
@@ -41,7 +35,7 @@
                 </div>
                 <div class="dodajNovi__inputWrap">
                     <label for="Mesto" class="label">Mesto</label>
-                    <input name="Mesto" id="Mesto" class="input" type="text"  placeholder="Mesto" required pattern="[0-9]{1,10}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 10 brojeva')" oninput="setCustomValidity('')">
+                    <input name="Mesto" id="Mesto" class="input" type="text"  placeholder="Mesto" required pattern="[A-Za-z]{1,20}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 20 karaktera')" oninput="setCustomValidity('')">
                 </div>
                 <div class="dodajNovi__inputWrap">
                     <label for="Trosak" class="label">Troškovi</label>

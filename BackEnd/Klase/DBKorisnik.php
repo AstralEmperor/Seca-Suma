@@ -16,12 +16,11 @@ public function UcitajSveKorisnike(){
     $SQL = "select * from korisnik";
     $this->UcitajSvePoUpitu($SQL);
 }
-
+    // nabavlja sve naloge iz data baze, i provarava da li zeljeni nalog postoji u DB
 public function ProveraPostojanjaKorisnika($loginusername,$loginpassword){
     $postoji="";
-    // nabavlja sve naloge iz data baze, i provarava da li zeljeni nalog postoji u DB
     $SQLKorisnik = "SELECT * FROM `".$this->OtvorenaKonekcija->KompletanNazivBazePodataka."`.`korisnik` WHERE
-    KorisnickoIme='".$loginusername."' AND Sifra='".$loginpassword"'";
+    KorisnickoIme='".$loginusername."' AND Sifra='".$loginpassword."'";
     $this->UcitajSvePoUpitu($SQLKorisnik);
 
     if($this->BrojZapisa>0){
@@ -35,7 +34,7 @@ public function ProveraPostojanjaKorisnika($loginusername,$loginpassword){
 // Proverava trenutno ulogovanog korisnika i vraca $ime korisnika
 public function PreuzmiImePrijavljenogKorisnika($loginusername,$loginpassword){
     $korisnik="";
-    $SQL = "SELECT * FROM `".$this->OtvorenaKonekcija->KompletanNazivBazePodataka."`.`korisnik` WHERE
+    $SQLKorisnik = "SELECT * FROM `".$this->OtvorenaKonekcija->KompletanNazivBazePodataka."`.`korisnik` WHERE
     KorisnickoIme='".$loginusername."' AND Sifra='".$loginpassword."'";
     $this->UcitajSvePoUpitu($SQLKorisnik);
     $this->PrebaciKolekcijuUListu($this->Kolekcija);
@@ -51,7 +50,7 @@ public function PreuzmiImePrijavljenogKorisnika($loginusername,$loginpassword){
 // Proverava trenutno ulogovanog korisnika i vraca $prezime korisnika
 public function PreuzmiPrezimePrijavljenogKorisnika($loginusername,$loginpassword){
     $korisnik="";
-    $SQL = "SELECT * FROM `".$this->OtvorenaKonekcija->KompletanNazivBazePodataka."`.`korisnik` WHERE
+    $SQLKorisnik = "SELECT * FROM `".$this->OtvorenaKonekcija->KompletanNazivBazePodataka."`.`korisnik` WHERE
     KorisnickoIme='".$loginusername."' AND Sifra='".$loginpassword."'";
     $this->UcitajSvePoUpitu($SQLKorisnik);
     $this->PrebaciKolekcijuUListu($this->Kolekcija);
@@ -67,7 +66,7 @@ public function PreuzmiPrezimePrijavljenogKorisnika($loginusername,$loginpasswor
 // Proverava trenutno ulogovanog korisnika i vraca $prezime korisnika
 public function PreuzmiImeIPrezimePrijavljenogKorisnika($loginusername,$loginpassword){
     $korisnik="";
-    $SQL = "SELECT * FROM `".$this->OtvorenaKonekcija->KompletanNazivBazePodataka."`.`korisnik` WHERE
+    $SQLKorisnik = "SELECT * FROM `".$this->OtvorenaKonekcija->KompletanNazivBazePodataka."`.`korisnik` WHERE
     KorisnickoIme='".$loginusername."' AND Sifra='".$loginpassword."'";
     $this->UcitajSvePoUpitu($SQLKorisnik);
     $this->PrebaciKolekcijuUListu($this->Kolekcija);
@@ -85,7 +84,7 @@ public function PreuzmiImeIPrezimePrijavljenogKorisnika($loginusername,$loginpas
 // Proverava trenutno ulogovanog korisnika i vraca $IDKorisnika korisnika
 public function PreuzmiIdPrijavljenogKorisnika($loginusername,$loginpassword){
     $id=0;
-    $SQL = "SELECT * FROM `".$this->OtvorenaKonekcija->KompletanNazivBazePodataka."`.`korisnik` WHERE
+    $SQLKorisnik = "SELECT * FROM `".$this->OtvorenaKonekcija->KompletanNazivBazePodataka."`.`korisnik` WHERE
     KorisnickoIme='".$loginusername."' AND Sifra='".$loginpassword."'";
     $this->UcitajSvePoUpitu($SQLKorisnik);
     $this->PrebaciKolekcijuUListu($this->Kolekcija);
@@ -109,7 +108,7 @@ public function Obrisi(){
 // Brisanje svih zapisa
 public function ObrisiSve(){
     $AktivanSQLUpit="DELETE from";
-    $this->IzvrsiAktivanSQLUpit($AktivanSQLUpit)
+    $this->IzvrsiAktivanSQLUpit($AktivanSQLUpit);
 }
 // izmena postojeceg zapisa
 public function IzmeniVrednostPolja(){

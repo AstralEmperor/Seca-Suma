@@ -21,7 +21,9 @@
 <body class="glavniKontejner">
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/header.php"?>
         <section class="index">
-            <img src="/SECA-SUMA/FrontEnd/Assets/food-cutting-pic1.jpg" alt="woodcutting.jpg">
+        <div class="naslov__glavniDeo">
+            <img src="/SECA-SUMA/FrontEnd/Assets/food-cutting-pic1.jpg" alt="SecenjeDrva.jpg">
+        </div>
         </section>
          <footer class="footer"><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?>
         </footer>

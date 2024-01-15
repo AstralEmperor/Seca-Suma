@@ -4,8 +4,8 @@ class Konekcija{
 
 public $konekcijaMYSQL;
 public $konekcijaDB;
-public $kompletanNazivBazePodataka;
-public $VerzijaMYSQL;
+public $KompletanNazivBazePodataka;
+public $VerzijaMySQLNaredbi;
 
 private $PutanjaNazivFajlaXMLParametriKonekcije;
 private $korisnik;
@@ -14,43 +14,42 @@ private $host;
 private $prefiks_baze_podataka;
 private $naziv_baze_podataka;
 
-private function UcitajVerzijuMYSQL(){
+private function UcitajVerzijuMYSQLNaredbi(){
     $VerzijaPHP = phpversion();
-
     if($VerzijaPHP<'7.0.0'){
-        $this->$VerzijaMYSQL="mysql";
+        $this->VerzijaMySQLNaredbi="mysql";
     }else {
-        $this->$VerzijaMYSQL="mysqli";
+        $this->VerzijaMySQLNaredbi="mysqli";
     }
 }
-
 private function UcitajParamKonekcije($PutanjaNazivFajlaXMLParametriKonekcije){
-    $xml=simplexml_load_file($PutanjaNazivFajlaXMLParametriKonekcije) or die("Greska: ne postoji fajl BaznaParametrikonekcije.xml");
+    $xml=simplexml_load_file($PutanjaNazivFajlaXMLParametriKonekcije) or die("Greska: ne postoji fajl BazniParamKonekcije.xml");
     
     $this->host=$xml->host;
     $this->korisnik=$xml->korisnik;
     $this->sifra=$xml->sifra;
 
-    $this->$prefiks_baze_podataka = $xml->prefiks_baze_podataka;
-    $this->$naziv_baze_podataka = $xml->naziv_baze_podataka;
-    $this->$kompletanNazivBazePodataka=$this->prefiks_baze_podataka.$this->naziv_baze_podataka;
+    $this->prefiks_baze_podataka = $xml->prefiks_baze_podataka;
+    $this->naziv_baze_podataka = $xml->naziv_baze_podataka;
+    $this->KompletanNazivBazePodataka = $this->prefiks_baze_podataka.$this->naziv_baze_podataka;
 }
-
-public function __constructor($NovaPutanjaNazivFajlaXMLParametriKonekcije){
-    $this->$PutanjaNazivFajlaXMLParametriKonekcije=$NovaPutanjaNazivFajlaXMLParametriKonekcije;
-    $this->UcitajVerzijuMYSQL();
+// konstruktor klase
+public function __construct($NovaPutanjaNazivFajlaXMLParametriKonekcije){
+    $this->PutanjaNazivFajlaXMLParametriKonekcije=$NovaPutanjaNazivFajlaXMLParametriKonekcije;
+    $this->UcitajVerzijuMYSQLNaredbi();
     $this->UcitajParamKonekcije($NovaPutanjaNazivFajlaXMLParametriKonekcije);
 }
 
+// funkcija za konekciju na SQL
 public function connect(){
-    if($this->$VerzijaMYSQL=="mysqli"){
-        $this->konekcijaDB = mysqli_connect($this->host, $this->korisnik, $this->sifra, $this->$kompletanNazivBazePodataka);
+    if($this->VerzijaMySQLNaredbi=="mysqli"){
+        $this->konekcijaDB = mysqli_connect($this->host, $this->korisnik, $this->sifra, $this->KompletanNazivBazePodataka);
     }else{
         $this->konekcijaMYSQL = mysql_connect($this->host, $this->korisnik, $this->sifra);
-        $this->konekcijaDB = mysql_select_db($this->$kompletanNazivBazePodataka, $this->konekcijaMYSQL);
+        $this->konekcijaDB = mysql_select_db($this->KompletanNazivBazePodataka, $this->konekcijaMYSQL);
     }
  if($this->konekcijaDB){
-    if($this->$VerzijaMYSQL=="mysqli"){
+    if($this->VerzijaMySQLNaredbi=="mysqli"){
         mysqli_set_charset($this->konekcijaDB,"utf8");
     }
     else{
@@ -58,9 +57,9 @@ public function connect(){
     }
   }
  }
-
+// funkcija za diskonekciju sa SQL
  public function disconnect(){
-    if($this->$VerzijaMYSQL=="mysqli"){
+    if($this->VerzijaMySQLNaredbi=="mysqli"){
         mysqli_close($this->konekcijaDB);
     }
     else{

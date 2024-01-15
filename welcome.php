@@ -1,16 +1,13 @@
 <?php
     session_start();
-    session_unset();
-    session_destroy();
 
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php";
 	   // proverava informacije u sesiji za korisnika
 	   $korisnik=$_SESSION["korisnik"];
       
 	  // ako korisnik nije prijavljen, vraca ga na pocetnu stranicu
-				if (!isset($korisnik))
-				{
-					header ('Location:index.php');
+				if (!isset($korisnik)){
+					header ('Location:/Seca-Suma/index.php');
 				}	
 ?>
 
@@ -27,14 +24,18 @@
     <title>Početna strana</title>
 </head>
 <body class="glavniKontejner">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/header.php"?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/headerAdmin.php"?>
         <section class="index">
             <aside class="leviMeni">
                 <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/LeviMeni/leviMeni.php"?>
             </aside>
-            <img src="/SECA-SUMA/FrontEnd/Assets/food-cutting-pic1.jpg" alt="woodcutting.jpg">
+            <div class="naslov__glavniDeo">
+                <img src="/SECA-SUMA/FrontEnd/Assets/Felled_tree.jpg" alt="palo_drvo.jpg">
+                <h3 class="naslov__dobrodosli">Dobrodošli, <?php echo $korisnik ;?>!</h3>
+            </div>
         </section>
          <footer class="footer"><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?>
         </footer>
 </body>
+<script src="welcome.js"></script>
 </html>

@@ -1,75 +1,55 @@
 <?php
 class DBZakazaneSece extends Tabela 
 {
-// ATRIBUTI
-private $bazapodataka;
-private $UspehKonekcijeNaDBMS;
-//
-public $VrstaDrveta;
-public $PovršinaSume;
-public $Datum;
-public $Neto;
-public $Mesto;
-public $Trosak;
+    private $bazapodataka;
+    private $UspehKonekcijeNaDBMS;
+    //
+    public $DoprinosID;
+    public $VrstaDrveta;
+    public $PovrsinaSume;
+    public $Datum;
+    public $Neto;
+    public $Mesto;
+    public $Trosak;
 
-    public function UcitajKolekcijaSvihSeca()
+    public function DajKolekcijuSvihZakazanihSeca()
     {
-        $SQL = "select * from `ZAKAZANASECA` ORDER BY Datum ASC";
-        $this->UcitajSvePoUpitu($SQL);    
-    }
-
-    public function InkrementirajBrojSeca($doprinosID)
-    {
-        $KriterijumFiltriranja = "VrstaDrveta ='".$doprinosID."'";
-        $StaraVrednostUkBrSeca = $this-> DajVrednostJednogPoljaPrvogZapisa ('UkupanBrojSeca', $KriterijumFiltriranja, 'UkupanBrojSeca');
-
-        $NovaVrednostUkBrSeca = $StaraVrednostUkBrSeca + 1;
-
-        $SQL = "UPDATE `".$this->NazivBazePodataka"`.`ZAKAZANASECA` SET UkupanBrojSeca=".$NovaVrednostUkBrSeca"
-        WHERE VrstaDrveta ='".$doprinosID"'";
-          $greska= $this->IzvrsiAktivanUpit($SQL);
-
-          return $greska;
-    }
-    
-    public function DajKolekcijuSecaFiltrirano($filterPolje, $filterVrednost, $nacinFiltriranja, $Sortiranje)
-    {
-        if($nacinFiltriranja == "like"){
-            $SQL = "select * from * `ZAKAZANASECA` WHERE $filterPolje like `%".$filterVrednost."%' ORDER BY $Sortiranje";
-        }
-        else{
-            $SQL = "select * from `ZAKAZANASECA` WHERE $filterPolje = '".$filterVrednost."' ORDER BY $Sortiranje";
-        }
+        $SQL = "select * from `ZAKAZANASECA` ORDER BY VrstaDrveta ASC";
         $this->UcitajSvePoUpitu($SQL);
         return $this->Kolekcija;
     }
-    
-    public function DodajNovuSecu(){
-        $SQL = "INSERT INTO `ZAKAZANASECA` (VrstaDrveta, PovršinaSume, Datum, Neto, Mesto, Trosak)
-        VALUES ('$this->VrstaDrveta', '$this->PovršinaSume', '$this->Datum', '$this->Neto', '$this->Mesto', '$this->Trosak)";
 
-        $greska = $this->IzvrsiAktivanSQLUpit($SQL);
-
-        return $greska;
+    public function UcitajSecePoNazivuDrveta($VrstaDrvetaParametar)
+    {
+        $SQL = "select * from `ZAKAZANASECA` WHERE `VrstaDrveta`='".$VrstaDrvetaParametar."'";
+        $this->UcitajSvePoUpitu($SQL);
     }
 
-    public function ObrisiSecu($IdZaBrisanje)
+    public function DodajNoveSece()
     {
-        $SQL = "DELETE FROM `ZAKAZANASECA` WHERE ID=".$IdZaBrisanje;
-        $greska = $this->IzvrsiAktivanSQLUpit($SQL);
-
-        return $greska;
-    }
-
-    public function IzmeniSecu($IdZaIzmenu, $NovaVrstaDrveta, $NovaPovrsinaSume, $NoviDatum, $NoviNeto, $NovoMesto, $NoviTrosak)
-    {
-        $SQL = "UPDATE `ZAKAZANASECA` SET VrstaDrveta='".$NovaVrstaDrveta."',
-        PovršinaSume = ".$NovaPovrsinaSume.", Datum = '".$NoviDatum."', Neto= ".$NoviNeto.", Mesto='".$NovoMesto."',Trosak='".$NoviTrosak."' WHERE ID=".$IdZaIzmenu;
+        $SQL = "INSERT INTO `ZAKAZANASECA` (VrstaDrveta, PovrsinaSume, Datum, Neto, Mesto, Trosak)
+        VALUES ('$this->VrstaDrveta', '$this->PovrsinaSume','$this->Datum','$this->Neto','$this->Mesto', '$this->Trosak')";
 
         $greska=$this->IzvrsiAktivanSQLUpit($SQL);
 
         return $greska;
     }
 
+    public function ObrisiZakazanuSecu($IdZaBrisanje)
+    {
+        $SQL = "DELETE FROM `ZAKAZANASECA` WHERE DoprinosID='.$IdZaBrisanje.'";
+        $greska = $this->IzvrsiAktivanSQLUpit($SQL);
+        return $greska;
+    }
+
+    public function IzmeniZakazanuSecu($StariDoprinosID, $DoprinosID, $VrstaDrveta, $PovrsinaSume, $Datum, $Neto, $Mesto, $Trosak)
+    {
+        $SQL = "UPDATE `ZAKAZANASECA` SET VrstaDrveta='".$VrstaDrveta."', PovrsinaSume=".$PovrsinaSume.", Datum='".$Datum."', Neto=".$Neto.", Mesto='".$Mesto."', Trosak=".$Trosak."
+        WHERE DoprinosID='.$StariDoprinosID.'";
+        
+        $greska = $this->IzvrsiAktivanSQLUpit($SQL);
+
+        return $greska;
+    }
 }
 ?>

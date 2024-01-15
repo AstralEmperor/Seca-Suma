@@ -45,13 +45,21 @@ td * img{
 td * img:hover{
     cursor:pointer;
 }
-tr:nth-child(even){
-    background-color:var(--tableRow2);
-}
-.zarada__row{
+tr{
     width:100%;
     background-color:var(--tableRow1);
 }
+thead > tr{
+    background-color:var(--tableHeader);
+}
+tr:nth-child(even){
+    background-color:var(--tableRow2);
+}
+td * img{
+    width:1rem;
+    height:1rem;
+}
+
 .zarada__formShow{
     position:absolute;
     display:none;

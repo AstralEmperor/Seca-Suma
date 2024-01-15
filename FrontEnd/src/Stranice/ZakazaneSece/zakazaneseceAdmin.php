@@ -1,9 +1,16 @@
 <?php
     session_start();
-    session_unset();
-    session_destroy();
 
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php";
+	   // proverava informacije u sesiji za korisnika
+	   $korisnik=$_SESSION["korisnik"];
+      
+	  // ako korisnik nije prijavljen, vraca ga na pocetnu stranicu
+				if (!isset($korisnik)){
+					header ('Location:/Seca-Suma/index.php');
+				}	
+
+
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaTabela.php";
     $KonekcijaObject = new Konekcija($_SERVER['DOCUMENT_ROOT'] . '/SECA-SUMA/BackEnd/Klase/BazniParamKonekcije.xml');
     $KonekcijaObject->connect();
@@ -32,7 +39,7 @@
     <title>Zakazane Sece</title>
 </head>
 <body>
-    <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/header.php"?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/headerAdmin.php"?>
 <section class="zarada">
     <div class="zarada__h1Wrap">
         <h1 class="zarada__h1">Evidencija Seča Šuma</h1>
@@ -66,12 +73,15 @@
                echo'         <th>Neto($)</th>';
                echo'         <th>Mesto</th>';
                echo'         <th>Trosak($)</th>';
+               echo'         <th>Edituj</th>';
+               echo'         <th>Obrisi</th>';
                echo'     </tr>';
                echo' </thead>';
                echo'<tbody class="troskovi__tableBody">';
 
                for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceViewObject->BrojZapisa; $RBZapisa++){
                 $Rbroj = $RBZapisa + 1;
+                $DoprinosID=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,0);
                 $VrstaDrveta=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,0);
                 $PovrsinaSume=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,1);
                 $Datum=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,2);
@@ -87,6 +97,8 @@
                 echo'<td>' .$Neto. '</td>';
                 echo'<td>' .$Mesto. '</td>';
                 echo'<td>' .$Trosak. '</td>';
+                echo'<td><form action="" method="POST"><img src="/SECA-SUMA/FrontEnd/Assets/edit-text.png" alt="edit.png"></form></td>';
+                echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Brisanje/ZakazaneSeceobrisi.php" method="POST"><input type="submit" name="Obrisi" value="Obrisi"></form></td>';
                 echo'</tr>';
                }
             }
@@ -94,6 +106,9 @@
         ?>
         </tbody>
     </table>
+    <aside class="leviMeni">
+                <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/LeviMeni/leviMeni.php"?>
+            </aside>
     <div class="zarada__formShow"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/ZakazaneSece_noveSece/zakazaneSece_dodajNovo.php"?></div>
 </section>
     <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>

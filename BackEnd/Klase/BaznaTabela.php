@@ -6,27 +6,28 @@
  public $OtvorenaKonekcija;
  public $NazivBazePodataka;
  public $NazivTabele;
+ public $TipMYSQL;
 
  public $Kolekcija;
  public $BrojZapisa;
  public $PrviRedZapisa;
  public $ListaZapisa;
 
-
+// konstruktor klase
  public function __construct($NovaOtvorenaKonekcija, $NoviNazivTabele) {
-        $this->$OtvorenaKonekcija = $NovaOtvorenaKonekcija;
-        $this->$NazivBazePodataka = $NovaOtvorenaKonekcija->KompletanNazivBazePodataka;
+        $this->OtvorenaKonekcija = $NovaOtvorenaKonekcija;
+        $this->NazivBazePodataka = $NovaOtvorenaKonekcija->KompletanNazivBazePodataka;
         $this->NazivTabele = $NoviNazivTabele;
-        $this->TipMYSQL = $NovaOtvorenaKonekcija->VerzijaMYSQLNaredbi;
+        $this->TipMYSQL = $NovaOtvorenaKonekcija->VerzijaMySQLNaredbi;
  }
 
-    public function UcitajSve($KriterijumSortiranja)
+public function UcitajSve($KriterijumSortiranja)
     {
-        $SQL = "select * from `".$this->$NazivBazePodataka"`.`"$this->NazivTabele"` ORDER BY ".$KriterijumSortiranja;
+        $SQL = "select * from `".$this->$NazivBazePodataka."`.`".$this->NazivTabele."` ORDER BY ".$KriterijumSortiranja;
 
         if($this->TipMYSQL=="mysqli"){
-            $this->Konekcija = mysqli_query($this->$OtvorenaKonekcija->konekcijaDB, $SQL);
-            $this->BrojZapisa = mysqli_num_rows($this->Konekcija);
+            $this->Kolekcija = mysqli_query($this->$OtvorenaKonekcija->konekcijaDB, $SQL);
+            $this->BrojZapisa = mysqli_num_rows($this->Kolekcija);
         }
         else{
             $this->Kolekcija = mysql_query($SQL);
@@ -115,7 +116,7 @@
       return $ListaZapisa;
     }
 
-    public function DajVrednostPoRednomBrojuZapisaPoRBPolja($Kolekecija, $RBZapisa, $RBPolja)
+    public function DajVrednostPoRednomBrojuZapisaPoRBPolja($Kolekcija, $RBZapisa, $RBPolja)
     {
         if($this->TipMYSQL=="mysqli")
         {
@@ -132,7 +133,7 @@
 
     public function PostojiZapis($KriterijumFiltriranja)
     {
-        $SQL = "SELECT * FROM `".$this->NazivBazePodataka."`.`".$this->NazivTabele"` 
+        $SQL = "SELECT * FROM `".$this->NazivBazePodataka."`.`".$this->NazivTabele."` 
         WHERE".$KriterijumFiltriranja;
 
         if($this->TipMYSQL == "mysqli")
