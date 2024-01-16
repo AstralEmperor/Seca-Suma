@@ -1,6 +1,4 @@
-<?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/SECA-SUMA/BackEnd/Klase/zakazaneSeceClass.php';
-?>
+
 <meta charset="UTF-8">
     <head>
         <link href="/SECA-SUMA/style.css" type="text/css" rel="stylesheet">
@@ -30,16 +28,33 @@
                     <input name="Datum" id="Datum" class="input" type="date" min="2024-01-01" oninvalid="this.setCustomValidity('Molimo vas unesite datum')" oninput="setCustomValidity('')" required>
                 </div>
                 <div class="dodajNovi__inputWrap">
-                    <label for="Neto" class="label">Neto</label>
+                    <label for="Neto" class="label">Neto($)</label>
                     <input name="Neto" id="Neto" class="input" type="text" placeholder="Zarada" pattern="[0-9]{1,10}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 10 brojeva')" oninput="setCustomValidity('')" required>
                 </div>
                 <div class="dodajNovi__inputWrap">
-                    <label for="Mesto" class="label">Mesto</label>
-                    <input name="Mesto" id="Mesto" class="input" type="text"  placeholder="Mesto" required pattern="[A-Za-z]{1,20}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 20 karaktera')" oninput="setCustomValidity('')">
+                    <label for="Trosak" class="label">Troškovi($)</label>
+                    <input name="Trosak" id="Trosak" class="input" type="text"  placeholder="Troškovi u radu" required pattern="[0-9]{1,10}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 10 brojeva')" oninput="setCustomValidity('')">
                 </div>
                 <div class="dodajNovi__inputWrap">
-                    <label for="Trosak" class="label">Troškovi</label>
-                    <input name="Trosak" id="Trosak" class="input" type="text"  placeholder="Troškovi u radu" required pattern="[0-9]{1,10}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 10 brojeva')" oninput="setCustomValidity('')">
+                    <label for="Mesto" class="label">Mesto</label>
+                    <input type="combobox" name="Mesto" id="Mesto" class="input" list="mestaLista" placeholder="--Mesto--">
+                    <datalist id="mestaLista">
+                    <?php
+                        if ($ZakazaneSeceViewObject->BrojZapisa==0)
+                        {
+                            echo "nema zapisa!";
+                        }else {
+                            for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceViewObject->BrojZapisa; $RBZapisa++){
+                                $Mesto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,6);
+                                echo'<option value="'.$Mesto.'">';
+                            }
+                        }
+                    ?>
+                    </datalist>
+                </div>
+                <div class="dodajNovi__inputWrap">
+                    <label for="PlacenoUnapred" class="label">PlacenoUnapred($)</label>
+                    <input name="PlacenoUnapred" id="PlacenoUnapred" class="input" type="text" placeholder="Troškovi u radu" pattern="[0-9]{1,10}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 10 brojeva')" oninput="setCustomValidity('')" value="0">
                 </div>
             </div>
             <div class="dodajNovi__addBtnWrap">

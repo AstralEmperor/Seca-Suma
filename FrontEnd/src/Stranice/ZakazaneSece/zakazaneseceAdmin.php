@@ -20,10 +20,10 @@
         $ZakazaneSeceViewObject = new DBZakazaneSece($KonekcijaObject,"zakazanaseca");
         if(isset($_GET['filtriraj'])){
             $filter=$_GET['filter'];
-            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecema($filter);
+            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecama($filter);
         }else{
             $filter=null;
-            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecema($filter);
+            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecama($filter);
         }
     }else{
         echo"Neuspesna konekcija";
@@ -38,23 +38,31 @@
     <link href="zakazaneSece.css" type="text/css" rel="stylesheet">
     <title>Zakazane Sece</title>
 </head>
-<body>
+<body class="glavniKontejner seca">
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/headerAdmin.php"?>
-<section class="zarada">
-    <div class="zarada__h1Wrap">
-        <h1 class="zarada__h1">Evidencija Seča Šuma</h1>
+  <section class="index">
+    <div class="sadrzajAside">
+            <aside class="leviMeni">
+                <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/LeviMeni/leviMeni.php"?>
+            </aside>
+</div>
+<div class="seca__sadrzaj seca">
+    <div class="seca__h1Wrap">
+        <h1 class="seca__h1">Evidencija Seča Šuma</h1>
     </div>
-        <div class="zarada__optionsWrap">
-        <div class="zarada__addBtnWrap">
-                <button class="zarada__addNew button">DODAJ ZAKAZANU SEČU</button>
+        <div class="seca__optionsWrap">
+        <div class="seca__addBtnWrap">
+                <button class="seca__dodajNovu button">ZAKAŽI SEČU</button>
             </div>
-            <div class="zarada__pretraga">
-               <label for="filterSece">Pretraga</label>
-               <div class="zarada__pretragaBar">
-                    <Input name="filterSece" id="filterSece" class="zarada__Filter input" placeholder="Unesi vrednost">
-                    <button class="zarada__filterBtn button"><img src="/SECA-SUMA/FrontEnd/Assets/Search_icon.png" alt="search.png"></button>
+            <form name="pretraga" class="seca__pretragaForm">
+               <div class="seca__pretragaBar">
+                    <input name="filter" id="filter" class="seca__Filter input" placeholder="Unesi vrednost">
+                    <button class="seca__filterBtn button" type="submit" name="filtriraj"><img src="/SECA-SUMA/FrontEnd/Assets/Search_icon.png" alt="search.png"></button>
                </div>
-            </div>
+               <div class="seca__pretragaBar">
+                 <button type="submit" name="svi" id="svi" class="seca__sviPodatci button">PRIKAŽI SVE
+               </div>
+            </form>
         </div>
         <?php
             if ($ZakazaneSeceViewObject->BrojZapisa==0)
@@ -63,16 +71,16 @@
             }
         else
             {
-               echo' <table class="table zarada__table">';
-               echo' <thead class="zarada__thead">';
-               echo'     <tr class="zarada__headTr">';
+               echo' <table class="table seca__table">';
+               echo' <thead class="seca__thead">';
+               echo'     <tr class="seca__headTr">';
                echo'         <th>R.Broj</th>';
                echo'         <th>VrstaDrveta</th>';
                echo'         <th>PovrsinaSume(m3)</th>';
                echo'         <th>Datum</th>';
                echo'         <th>Neto($)</th>';
-               echo'         <th>Mesto</th>';
                echo'         <th>Trosak($)</th>';
+               echo'         <th>Mesto</th>';
                echo'         <th>Edituj</th>';
                echo'         <th>Obrisi</th>';
                echo'     </tr>';
@@ -82,13 +90,13 @@
                for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceViewObject->BrojZapisa; $RBZapisa++){
                 $Rbroj = $RBZapisa + 1;
                 $DoprinosID=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,0);
-                $VrstaDrveta=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,0);
-                $PovrsinaSume=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,1);
-                $Datum=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,2);
-                $Neto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,3);
-                $Trosak=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,4);
+                $VrstaDrveta=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,1);
+                $PovrsinaSume=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,2);
+                $Datum=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,3);
+                $Neto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,4);
                 $Mesto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,5);
-
+                $Trosak=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,6);
+                
                 echo'<tr>';
                 echo'<td>' .$Rbroj.'</td>';
                 echo'<td>' .$VrstaDrveta. '</td>';
@@ -97,8 +105,8 @@
                 echo'<td>' .$Neto. '</td>';
                 echo'<td>' .$Mesto. '</td>';
                 echo'<td>' .$Trosak. '</td>';
-                echo'<td><form action="" method="POST"><img src="/SECA-SUMA/FrontEnd/Assets/edit-text.png" alt="edit.png"></form></td>';
-                echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Brisanje/ZakazaneSeceobrisi.php" method="POST"><input type="submit" name="Obrisi" value="Obrisi"></form></td>';
+                echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Izmena/IzmenaZakazaneSece.php" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input class="input-slika" type="image" src="/SECA-SUMA/FrontEnd/Assets/edit-text.png" name="EditujSecu"></form></td>';
+                echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Brisanje/ZakazaneSeceobrisi.php" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input class="input-slika" type="image"src="/SECA-SUMA/FrontEnd/Assets/trash-can.png" name="ObrisiSecu"></form></td>';
                 echo'</tr>';
                }
             }
@@ -106,10 +114,8 @@
         ?>
         </tbody>
     </table>
-    <aside class="leviMeni">
-                <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/LeviMeni/leviMeni.php"?>
-            </aside>
-    <div class="zarada__formShow"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/ZakazaneSece_noveSece/zakazaneSece_dodajNovo.php"?></div>
+</div>
+    <div class="seca__formShow"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/ZakazaneSece_noveSece/zakazaneSece_dodajNovo.php"?></div>
 </section>
     <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>
 </body>

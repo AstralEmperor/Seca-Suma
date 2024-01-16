@@ -9,8 +9,9 @@ class DBZakazaneSece extends Tabela
     public $PovrsinaSume;
     public $Datum;
     public $Neto;
-    public $Mesto;
     public $Trosak;
+    public $Mesto;
+    public $PlacenoUnapred;
 
     public function DajKolekcijuSvihZakazanihSeca()
     {
@@ -19,7 +20,7 @@ class DBZakazaneSece extends Tabela
         return $this->Kolekcija;
     }
 
-    public function UcitajSecePoNazivuDrveta($VrstaDrvetaParametar)
+    public function UcitajSeceVrstiDrveta($MestoParametar)
     {
         $SQL = "select * from `ZAKAZANASECA` WHERE `VrstaDrveta`='".$VrstaDrvetaParametar."'";
         $this->UcitajSvePoUpitu($SQL);
@@ -27,8 +28,8 @@ class DBZakazaneSece extends Tabela
 
     public function DodajNoveSece()
     {
-        $SQL = "INSERT INTO `ZAKAZANASECA` (VrstaDrveta, PovrsinaSume, Datum, Neto, Mesto, Trosak)
-        VALUES ('$this->VrstaDrveta', '$this->PovrsinaSume','$this->Datum','$this->Neto','$this->Mesto', '$this->Trosak')";
+        $SQL = "INSERT INTO `ZAKAZANASECA` (VrstaDrveta, PovrsinaSume, Datum, Neto, Trosak, Mesto, PlacenoUnapred)
+        VALUES ('$this->VrstaDrveta', '$this->PovrsinaSume','$this->Datum','$this->Neto','$this->Trosak','$this->Mesto', '$this->PlacenoUnapred')";
 
         $greska=$this->IzvrsiAktivanSQLUpit($SQL);
 
@@ -37,14 +38,14 @@ class DBZakazaneSece extends Tabela
 
     public function ObrisiZakazanuSecu($IdZaBrisanje)
     {
-        $SQL = "DELETE FROM `ZAKAZANASECA` WHERE DoprinosID='.$IdZaBrisanje.'";
+        $SQL = "DELETE FROM `ZAKAZANASECA` WHERE DoprinosID='".$IdZaBrisanje."'";
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
         return $greska;
     }
 
-    public function IzmeniZakazanuSecu($StariDoprinosID, $DoprinosID, $VrstaDrveta, $PovrsinaSume, $Datum, $Neto, $Mesto, $Trosak)
+    public function IzmeniZakazanuSecu($StariDoprinosID, $DoprinosID, $VrstaDrveta, $PovrsinaSume, $Datum, $Neto, $Trosak, $Mesto, $PlacenoUnapred)
     {
-        $SQL = "UPDATE `ZAKAZANASECA` SET VrstaDrveta='".$VrstaDrveta."', PovrsinaSume=".$PovrsinaSume.", Datum='".$Datum."', Neto=".$Neto.", Mesto='".$Mesto."', Trosak=".$Trosak."
+        $SQL = "UPDATE `ZAKAZANASECA` SET VrstaDrveta='".$VrstaDrveta."', PovrsinaSume=".$PovrsinaSume.", Datum='".$Datum."', Neto=".$Neto.", Trosak=".$Trosak." ,Mesto='".$Mesto."',Trosak=".$PlacenoUnapred."
         WHERE DoprinosID='.$StariDoprinosID.'";
         
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);

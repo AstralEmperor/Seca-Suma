@@ -7,6 +7,7 @@ $korisnik=$_SESSION["korisnik"];
         header('Location:/Seca-Suma/index.php');
     }
 
+    // uzima ID i brise ceo objekat iz data baze
     $IdZaBrisanje=$_POST['DoprinosID'];
 
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php";

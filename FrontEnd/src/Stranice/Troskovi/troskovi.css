@@ -1,13 +1,15 @@
-
-.troskovi{
+.mesta{
     margin-block:2rem;
     margin-inline:2rem;
 }
-.troskovi__h1Wrap{
+.mesta__sadrzaj{
+    width:100%;
+}
+.mesta__h1Wrap{
     width:100%;
     text-align:center;
 }
-.troskovi__h1{
+.mesta__h1{
     font-size:1.75rem;
     margin-bottom:2rem;
 }
@@ -17,7 +19,7 @@
     align-content:center;
     border-spacing:0;
 }
-.troskovi__thead{
+.mesta__thead{
     background-color:var(--tableHeader);
     color:var(--body);
 }
@@ -32,17 +34,35 @@ td{
     width:1rem;
     font-size:var(--table-txt-Font);
 }
-td > img{
+td > button{
+    border:none;    
+    background-color:transparent;
     width:15%;
     height:100%;
 }
-td > img:hover{
+td * img{
+    width:100%;
+    height:100%;
+}
+td * img:hover{
     cursor:pointer;
+}
+tr{
+    width:100%;
+    background-color:var(--tableRow1);
+}
+thead > tr{
+    background-color:var(--tableHeader);
 }
 tr:nth-child(even){
     background-color:var(--tableRow2);
 }
-.troskovi__row{
+td > form {
+    width:1rem;
+    height:1rem;
+    margin:0 auto;
+}
+.input-slika{
     width:100%;
-    background-color:var(--tableRow1);
+    height:100%;
 }

@@ -6,6 +6,7 @@
 :root{
     /* ------------- BOJE ------------- */
     --base-txt-clr:#1d1d1d;
+    --base-txt-white-variety:#ffffff;
     --body-shadow:#757575;
     --html-bckground:rgb(41, 40, 40);
     --body:rgb(255, 255, 255);
@@ -18,10 +19,12 @@
     --form:rgb(255, 255, 255);
     --covered:rgba(41, 40, 40, 0.5);
     --footer:rgb(238, 238, 238);
-    --button-primary-border:black;
-    --search-wrap:rgb(1, 99, 1);
     --aside-bg:rgb(230, 230, 230);
     --welcome-bg:rgba(4, 88, 4, 0.6);
+    
+    --search-wrap-bg:rgb(162, 231, 162);
+    --button-clr-primary:rgb(13, 95, 33);
+    --button-primary-border:rgb(0, 0, 0);
    /* ------------- FONTOVI ------------- */
     --table-txt-Font:0.8rem;
     --table-header-Font:0.9rem;
@@ -46,9 +49,25 @@ body{
     border-radius:20px;
     background-color:var(--body);
     position:relative;
+
 }
 aside{
     z-index:20;
+}
+.index{
+    font-size:var(--aside-font);
+    display:flex;
+    position:relative;
+    width:100%;
+    z-index:10;
+}
+.sadrzajAside{
+    font-size:var(--aside-font);
+    display:flex;
+    position:relative;
+    width:160px;
+    height:30rem;
+    z-index:10;
 }
 .button{
     border-radius:5px;

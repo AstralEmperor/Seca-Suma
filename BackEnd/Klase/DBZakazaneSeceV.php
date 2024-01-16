@@ -1,10 +1,10 @@
 <?php
     class DBZakazaneSece extends Tabela{
-        public function DajSvePodatkeOZakazanimSecema($filterParametar){
+        public function DajSvePodatkeOZakazanimSecama($filterParametar){
             if(isset($filterParametar)){
-                $upit="select * from `".$this->NazivBazePodataka."`.`SVESECEUNUTARMESTA` where `DoprinosID`='".$filterParametar."'";
+                $upit="select * from `".$this->NazivBazePodataka."`.`SVEZAKAZANESECE` where `VrstaDrveta`='".$filterParametar."'";
             }else{
-                $upit="select * from `".$this->NazivBazePodataka."`.`SVESECEUNUTARMESTA`";
+                $upit="select * from `".$this->NazivBazePodataka."`.`SVEZAKAZANESECE`";
             }
             $this->UcitajSvePoUpitu($upit);
         }

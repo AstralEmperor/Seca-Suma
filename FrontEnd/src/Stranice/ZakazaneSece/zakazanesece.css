@@ -1,13 +1,16 @@
 
-.zarada{
+.seca{
     margin-block:2rem;
     margin-inline:2rem;
 }
-.zarada__h1Wrap{
+.seca__sadrzaj{
+    width:100%;
+}
+.seca__h1Wrap{
     width:100%;
     text-align:center;
 }
-.zarada__h1{
+.seca__h1{
     font-size:1.75rem;
     margin-bottom:2rem;
 }
@@ -17,7 +20,7 @@
     align-content:center;
     border-spacing:0;
 }
-.zarada__thead{
+.seca__thead{
     background-color:var(--tableHeader);
     color:var(--body);
 }
@@ -55,12 +58,17 @@ thead > tr{
 tr:nth-child(even){
     background-color:var(--tableRow2);
 }
-td * img{
+td > form {
     width:1rem;
     height:1rem;
+    margin:0 auto;
+}
+.input-slika{
+    width:100%;
+    height:100%;
 }
 
-.zarada__formShow{
+.seca__formShow{
     position:absolute;
     display:none;
     align-items:center;
@@ -70,34 +78,40 @@ td * img{
     z-index:100;
     inset:0;
 }
-.zarada__activeForm{
+.seca__activeForm{
     display:flex;
 }
-.zarada__optionsWrap{
+.seca__optionsWrap{
     display:flex;
     flex-direction:column;
     gap:1rem;
     margin-bottom:1rem;
 }
-.zarada__pretragaBar{
+.seca__pretragaBar{
     width:fit-content;
     height:fit-content;
     display:flex;
     align-items:center;
-    border:1px solid var(--button-primary-border);
-    background-color:var(--search-wrap);
-    border-radius:0px 20px 20px 0px;
 }
-.zarada__pretraga{
-    gap:1rem;
+.seca__pretragaForm{
+    gap:0.5rem;
+    display:flex;   
 }
-.zarada__filterBtn{
+.seca__filterBtn{
     width:3rem;
     height:1.5rem;
-    background-color:var(--search-wrap);
+    background-color:var(--search-wrap-bg);
     border:none;
 }
-.zarada__filterBtn > img{
+.seca__filterBtn > img{
     width:100%;
     height:100%;
+}
+.seca__dodajNovu{
+    background-color:var(--button-clr-primary);
+    color:var(--base-txt-white-variety);
+}
+.seca__sviPodatci{
+    background-color:var(--button-clr-primary);
+    color:var(--base-txt-white-variety);
 }

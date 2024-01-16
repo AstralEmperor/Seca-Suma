@@ -1,3 +1,4 @@
+CREATE DATABASE `SUME` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table `SUME`.`ZAKAZANASECA`
 (
@@ -7,16 +8,17 @@ create table `SUME`.`ZAKAZANASECA`
     Datum               date not null,    
     Neto                int not null, 
     Mesto               varchar(30) not null,  
-    Trosak              int not null
+    Trosak              int not null,
+    PlacenoUnapred      int null      
 );
 
 create table `SUME`.`TROSKOVI`
 (
-    UkupanTrosak        int not null  PRIMARY KEY,
-    NazivDrveta         varchar(30) not null
+    Mesto               varchar(30) not null PRIMARY KEY,
+    UkupanBrojSeca      int not null
 );
 
-alter table `SUME`.`ZAKAZANASECA` add constraint pripada foreign key(Trosak) references `SUME`.`TROSKOVI` (UkupanTrosak) on delete restrict on update cascade;
+alter table `SUME`.`ZAKAZANASECA` add constraint pripada foreign key(Mesto) references `SUME`.`TROSKOVI` (Mesto) on delete restrict on update cascade;
 
 create table `SUME`.`KORISNIK`
 (
@@ -34,17 +36,16 @@ values
 ("Kovacevic", "Marko", "kovacevic.marko@gmail.com", "Mare", "marko97", "admin"),
 ("Jovanovic", "Nikolina", "jovanoc.nikolina@gmail.com", "Niki", "najbolja023", "korisnik");
 
-insert into `SUME`.`TROSKOVI` (NazivDrveta,UkupanTrosak)
+insert into `SUME`.`TROSKOVI` (Mesto,UkupanBrojSeca)
 values
-("Smrča", 72772),
-("Bukva", 586050),
-("Bor", 38000),
-("Cer", 32600);
+("Niš", 0),
+("Zrenjanin", 0),
+("Novi Sad", 0);
 
-insert into `SUME`.`ZAKAZANASECA` (VrstaDrveta, PovrsinaSume, Datum, Neto, Mesto, Trosak) 
+insert into `SUME`.`ZAKAZANASECA` (VrstaDrveta, PovrsinaSume, Datum, Neto, Mesto, Trosak, PlacenoUnapred) 
 values 
-("Smrča", 6, "2024-05-12", 11332, 'Niš', 72772),
-("Bukva", 10, "2024-08-05", 13865,'Zrenjanin', 586050),
-("Bor", 5, "2024-03-24", 4134,'Novi Sad', 38000),
-("Cer", 6, "2024-10-24", 10350, 'Zrenjanin', 32600);
+("Smrča", 6, "2024-05-12", 11332, 'Niš', 72772, 25000),
+("Bukva", 10, "2024-08-05", 13865,'Zrenjanin', 586050, 0),
+("Bor", 5, "2024-03-24", 4134,'Novi Sad', 38000, 14000),
+("Cer", 6, "2024-10-24", 10350, 'Zrenjanin', 32600, 0);
 
