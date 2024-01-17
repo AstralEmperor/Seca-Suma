@@ -1,6 +1,6 @@
 <?php
 
-class DBTroskovi extends Tabela
+class DBMesto extends Tabela
 {
     // ATRIBUTI
 private $bazapodataka;
@@ -9,54 +9,55 @@ private $UspehKonekcijeNaDBMS;
 public $Mesto;
 public $UkupanBrojSeca;
 
+// Ucitava kolekciju svih mesta u odnosu na mesto
     public function UcitajKolekcijuSvihMesta()
     {
-        $SQL = "select * from `TROSKOVI` ORDER BY Mesto ASC";
+        $SQL = "select * from `MESTO` ORDER BY Mesto ASC";
         $this->UcitajSvePoUpitu($SQL);    
     }
-
-    public function InkrementirajBrojMesta($UkupanBrojSeca)
+// Inkrementira broj Ukupnog Broja Seca po mestu
+    public function InkrementirajUkupanBrojSecaPoMestu($IDMesto)
     {
-        $KriterijumFiltriranja = "UkupanBrojSeca ='".$UkupanBrojSeca."'";
-        $StaraVrednostUkBrMesta = $this-> DajVrednostJednogPoljaPrvogZapisa ('UkupanBrojSeca', $KriterijumFiltriranja, 'UkupanBrojSeca');
+        $KriterijumFiltriranja = "Mesto='".$IDMesto."'";
+        $StaraVrednostUkBrMesta = $this->DajVrednostJednogPoljaPrvogZapisa('UkupanBrojSeca', $KriterijumFiltriranja , 'Mesto');
 
         $NovaVrednostUkBrMesta = $StaraVrednostUkBrMesta + 1;
 
-        $SQL = "UPDATE `.$this->NazivBazePodataka`.`TROSKOVI` SET UkupanBrojSeca='".$NovaVrednostUkBrMesta."'
-        WHERE UkupanBrojSeca ='.$UkupanBrojSeca.'";
-          $greska= $this->IzvrsiAktivanUpit($SQL);
+        $SQL = "UPDATE `".$this->NazivBazePodataka."`.`MESTO` SET UkupanBrojSeca=".$NovaVrednostUkBrMesta." WHERE Mesto='".$IDMesto."'";
+        $greska= $this->IzvrsiAktivanSQLUpit($SQL);
 
-          return $greska;
+        return $greska;
     }
-    
+    // Vraca filtriranu kolekciju mesta
     public function DajKolekcijuMestaFiltrirano($filterPolje, $filterVrednost, $nacinFiltriranja, $Sortiranje)
     {
         if($nacinFiltriranja == "like"){
-            $SQL = "select * from * `TROSKOVI` WHERE $filterPolje like `%".$filterVrednost."%' ORDER BY $Sortiranje";
+            $SQL = "select * from * `MESTO` WHERE $filterPolje like `%".$filterVrednost."%' ORDER BY $Sortiranje";
         }
         else{
-            $SQL = "select * from `TROSKOVI` WHERE $filterPolje = '".$filterVrednost."' ORDER BY $Sortiranje";
+            $SQL = "select * from `MESTO` WHERE $filterPolje = '".$filterVrednost."' ORDER BY $Sortiranje";
         }
         $this->UcitajSvePoUpitu($SQL);
         return $this->Kolekcija;
     }
+// Vraca ukupan broj svih mesta
     public function DajUkupanBrojSvihMesta($KolekcijaZapisa)
         {
         return $this->BrojZapisa;
         }
-    
+    // dodaje novo mesto
     public function DodajNovoMesto(){
-        $SQL = "INSERT INTO `TROSKOVI` (Mesto, UkupanBrojSeca)
+        $SQL = "INSERT INTO `MESTO` (Mesto, UkupanBrojSeca)
         VALUES ('$this->Mesto', '$this->UkupanBrojSeca')";
 
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
 
         return $greska;
     }
-
+// Brise mesto
     public function ObrisiMesto($IdZaBrisanje)
     {
-        $SQL = "DELETE FROM `TROSKOVI` WHERE Mesto=".$IdZaBrisanje;
+        $SQL = "DELETE FROM `MESTO` WHERE Mesto=".$IdZaBrisanje;
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
 
         return $greska;
@@ -64,7 +65,7 @@ public $UkupanBrojSeca;
 
     public function IzmeniMesto($NovoMesto, $NoviUkupanBrojSeca)
     {
-        $SQL = "UPDATE `TROSKOVI` SET Mesto='".$NovoMesto."',
+        $SQL = "UPDATE `MESTO` SET Mesto='".$NovoMesto."',
         UkupanBrojSeca = ".$NoviUkupanBrojSeca." WHERE Mesto=".$IdZaIzmenu;
 
         $greska=$this->IzvrsiAktivanSQLUpit($SQL);

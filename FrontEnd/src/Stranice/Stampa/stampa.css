@@ -1,0 +1,63 @@
+table{
+    text-align:center;
+}
+table, tr {
+    border-bottom: 1px solid var(--button-primary-border);
+  }
+  td{
+    padding:0.25rem;
+  }
+  table {
+    border-collapse: collapse;
+    width: 50%;
+  }
+section{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2rem;
+    height:100%;
+    width:80%;
+    margin:0 auto;
+}
+.stampa__p{
+    margin-top:3.5rem;
+}
+.stampa__h1{
+    margin-top:2rem;
+}
+hr{
+    height:1px;
+    width:100%;
+}
+.stampa__pretragaBar{
+    width:fit-content;
+    height:fit-content;
+    display:flex;
+    align-items:center;
+}
+.stampa__pretragaForm{
+    gap:0.5rem;
+    display:flex;   
+}
+.stampa__filterBtn{
+    width:3rem;
+    height:1.5rem;
+    background-color:var(--search-wrap-bg);
+    border:none;
+}
+.stampa__filterBtn > img{
+    width:100%;
+    height:100%;
+}
+.stampa__izabranaSeca{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+}
+.stampa__izabranaSeca > div{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid var(--button-primary-border);
+    gap:6rem;
+}

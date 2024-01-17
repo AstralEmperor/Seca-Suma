@@ -9,24 +9,24 @@
     $KonekcijaObject->connect();
     // ako je uspesno ostvarena konekcija na DB uradi sledece
     if($KonekcijaObject->konekcijaDB){
-        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBTroskovi.php";
-        $MestaObject = new DBTroskovi($KonekcijaObject,"Troskovi");
-        $KolekcijaZapisa = $MestaObject ->UcitajKolekcijuSvihMesta();
-        $UkupanBrojZapisa = $MestaObject->DajUkupanBrojSvihMesta($KolekcijaZapisa);
+        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBmesta.php";
+        $MestoObject = new DBmesto($KonekcijaObject,"mesto");
+        $KolekcijaZapisa = $MestoObject ->UcitajKolekcijuSvihMesta();
+        $UkupanBrojZapisa = $MestoObject->DajUkupanBrojSvihMesta($KolekcijaZapisa);
     }else{
         echo"Neuspesna konekcija";
     }
 ?>
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="sr" class="html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/SECA-SUMA/style.css" type="text/css" rel="stylesheet">
-    <link href="/SECA-SUMA/FrontEnd/src/Stranice/Troskovi/troskovi.css" type="text/css" rel="stylesheet">
+    <link href="/SECA-SUMA/FrontEnd/src/Stranice/Mesta/mesta.css" type="text/css" rel="stylesheet">
     <title>Potrošnja</title>
 </head>
-<body>
+<body class="body">
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/header.php"?>
     <section class="mesta">
     <div class="mesta__h1Wrap">
@@ -34,7 +34,7 @@
     </div>
     <table class="table mesta__table">
     <?php
-            if ($MestaObject->BrojZapisa==0)
+            if ($MestoObject->BrojZapisa==0)
             {
                 echo "nema zapisa!";
             }
@@ -48,10 +48,10 @@
                echo'     </tr>';
                echo' </thead>';
 
-               for($RBZapisa = 0;$RBZapisa < $MestaObject->BrojZapisa;$RBZapisa++){
+               for($RBZapisa = 0;$RBZapisa < $MestoObject->BrojZapisa;$RBZapisa++){
                 $Rbroj = $RBZapisa + 1;
-                $Mesto=$MestaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($MestaObject->Kolekcija, $RBZapisa,0);
-                $UkupanBrojSeca=$MestaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($MestaObject->Kolekcija, $RBZapisa,1);
+                $Mesto=$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($MestoObject->Kolekcija, $RBZapisa,0);
+                $UkupanBrojSeca=$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($MestoObject->Kolekcija, $RBZapisa,1);
 
                 echo' <tbody class="mesta__tableBody">';
                 echo'<tr>';

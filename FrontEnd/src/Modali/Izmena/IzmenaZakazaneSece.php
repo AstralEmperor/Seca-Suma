@@ -13,13 +13,13 @@
     $PovrsinaSume=$_POST['PovrsinaSume'];
     $Datum=$_POST['Datum'];
     $Neto=$_POST['Neto'];
-    $Mesto=$_POST['Mesto'];
+    $Trosak=$_POST['Trosak'];
+    $PlacenoUnapred=$_POST['PlacenoUnapred'];
 
-    if(isset($_POST['Trosak'])){
-        $Trosak = $_POST['Trosak'];
+    if(isset($_POST['Mesto'])){
+        $Mesto = $_POST['Mesto'];
     }else{
-        $StariTrosak=$_POST['Trosak'];
-        $UkupanTrosak = $StariTrosak;
+        $StaroMesto=$_POST['Mesto'];
     }
 
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php";

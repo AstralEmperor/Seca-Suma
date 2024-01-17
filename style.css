@@ -32,7 +32,7 @@
     --aside-font:0.8rem;
     --welcome-font:2.5rem;
 }
-html{
+.html{
     display:flex;
     align-items:center;
     justify-content:center;
@@ -42,14 +42,18 @@ html{
     font-family: 'Montserrat', sans-serif;
     letter-spacing:0.03em;
 }
-body{
+.body{
     width:min(100%,60rem);
     min-height:30rem;
     box-shadow:0px 0px 10px 1px var(--body-shadow);
     border-radius:20px;
     background-color:var(--body);
     position:relative;
-
+}
+.body-stampa{
+    width:100%;  
+    min-height:100vh;
+    position:relative;
 }
 aside{
     z-index:20;

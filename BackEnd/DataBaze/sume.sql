@@ -12,13 +12,13 @@ create table `SUME`.`ZAKAZANASECA`
     PlacenoUnapred      int null      
 );
 
-create table `SUME`.`TROSKOVI`
+create table `SUME`.`MESTO`
 (
     Mesto               varchar(30) not null PRIMARY KEY,
     UkupanBrojSeca      int not null
 );
 
-alter table `SUME`.`ZAKAZANASECA` add constraint pripada foreign key(Mesto) references `SUME`.`TROSKOVI` (Mesto) on delete restrict on update cascade;
+alter table `SUME`.`ZAKAZANASECA` add constraint pripada foreign key(Mesto) references `SUME`.`MESTO` (Mesto) on delete restrict on update cascade;
 
 create table `SUME`.`KORISNIK`
 (
@@ -36,7 +36,7 @@ values
 ("Kovacevic", "Marko", "kovacevic.marko@gmail.com", "Mare", "marko97", "admin"),
 ("Jovanovic", "Nikolina", "jovanoc.nikolina@gmail.com", "Niki", "najbolja023", "korisnik");
 
-insert into `SUME`.`TROSKOVI` (Mesto,UkupanBrojSeca)
+insert into `SUME`.`MESTO` (Mesto,UkupanBrojSeca)
 values
 ("Niš", 0),
 ("Zrenjanin", 0),

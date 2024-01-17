@@ -1,0 +1,37 @@
+.edituj{
+    background-color:var(--covered);
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.edituj__form{
+    background-color:var(--form);
+    padding-inline:2rem;
+    padding-block:2rem;
+    position:relative;
+    border-radius:10px;
+}
+.edituj__h3Wrap{
+    margin-bottom:2rem;
+}
+.edituj__inputWrap{
+    display:flex;
+    flex-direction:column;
+    gap:0.15rem;
+}
+.edituj__inputContainer{
+    display:flex;
+    flex-direction: column;
+    gap:0.5rem;
+}
+.edituj__addBtnWrap{
+    display:flex;
+    justify-content:center;
+    width:100%;
+    margin-top:1rem;
+}
+.label{
+    font-size: var(--label-txt-font);
+}
