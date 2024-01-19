@@ -1,5 +1,5 @@
 <?php
-
+// Klasa za realizaciju konekcije sa DB
 class Konekcija{
 
 public $konekcijaMYSQL;
@@ -14,6 +14,7 @@ private $host;
 private $prefiks_baze_podataka;
 private $naziv_baze_podataka;
 
+// Proverava trenutnu verziju php
 private function UcitajVerzijuMYSQLNaredbi(){
     $VerzijaPHP = phpversion();
     if($VerzijaPHP<'7.0.0'){
@@ -22,6 +23,8 @@ private function UcitajVerzijuMYSQLNaredbi(){
         $this->VerzijaMySQLNaredbi="mysqli";
     }
 }
+
+// ucitava parametre konekcije na server i data bazu
 private function UcitajParamKonekcije($PutanjaNazivFajlaXMLParametriKonekcije){
     $xml=simplexml_load_file($PutanjaNazivFajlaXMLParametriKonekcije) or die("Greska: ne postoji fajl BazniParamKonekcije.xml");
     
@@ -40,7 +43,7 @@ public function __construct($NovaPutanjaNazivFajlaXMLParametriKonekcije){
     $this->UcitajParamKonekcije($NovaPutanjaNazivFajlaXMLParametriKonekcije);
 }
 
-// funkcija za konekciju na SQL
+// funkcija za konekciju na SQL, i proverava da li je konekcija moguca kao i da li je korisnik ulogovan
 public function connect(){
     if($this->VerzijaMySQLNaredbi=="mysqli"){
         $this->konekcijaDB = mysqli_connect($this->host, $this->korisnik, $this->sifra, $this->KompletanNazivBazePodataka);
@@ -57,7 +60,7 @@ public function connect(){
     }
   }
  }
-// funkcija za diskonekciju sa SQL
+// funkcija za diskonekciju sa servera
  public function disconnect(){
     if($this->VerzijaMySQLNaredbi=="mysqli"){
         mysqli_close($this->konekcijaDB);

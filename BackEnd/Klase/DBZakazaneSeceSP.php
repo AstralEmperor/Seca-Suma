@@ -11,7 +11,7 @@
         public $Mesto;
         public $PlacenoUnapred;
 
-        // dodaj novu secu uz koriscenje procedure za proveru postojanja podataka (ZakaziSecu), vraca gresku za svaki neispravan parametar
+        // dodaj novu secu uz koriscenje PROCEDURE za proveru postojanja podataka (ZakaziSecu), vraca gresku za svaki neispravan parametar
         public function DodajNovuSecu(){
             $GreskarezultatParam1 = $this->IzvrsiAktivanSQLUpit("SET @VrstaDrvetaParametar='".$this->VrstaDrveta."'");
             $GreskarezultatParam2 = $this->IzvrsiAktivanSQLUpit("SET @PovrsinaSumeParametar=".$this->PovrsinaSume."");

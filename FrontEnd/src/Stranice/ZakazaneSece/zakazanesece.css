@@ -63,12 +63,27 @@ td > form {
     height:1rem;
     margin:0 auto;
 }
+td > button {
+    width:1rem;
+    height:1rem;
+    margin:0 auto;
+}
 .input-slika{
     width:100%;
     height:100%;
 }
 
-.seca__formShow{
+.seca__formDodajOtvori{
+    position:absolute;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    height:100%;
+    z-index:100;
+    inset:0;
+}
+.seca__formEditujOtvori{
     position:absolute;
     display:none;
     align-items:center;

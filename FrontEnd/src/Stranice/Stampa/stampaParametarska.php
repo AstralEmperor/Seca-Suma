@@ -1,30 +1,25 @@
 <?php
-    session_start();
+ session_start();
 
-    require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php";
-	   // proverava informacije u sesiji za korisnika
-	   $korisnik=$_SESSION["korisnik"];
-      
-	  // ako korisnik nije prijavljen, vraca ga na pocetnu stranicu
-				if (!isset($korisnik)){
-					header ('Location:/Seca-Suma/index.php');
-				}	
+ require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php";
+ // proverava informacije u sesiji za korisnika
+ $korisnik=$_SESSION["korisnik"];
 
-// konektovanje na bazu
+ 	  // ako korisnik nije prijavljen, vraca ga na pocetnu stranicu
+       if (!isset($korisnik)){
+        header ('Location:/Seca-Suma/index.php');
+    }	
+// ako je uspesno ostvarena konekcija na DB, pozovi pogled i funkciju koja vraca podatke
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaTabela.php";
     $KonekcijaObject = new Konekcija($_SERVER['DOCUMENT_ROOT'] . '/SECA-SUMA/BackEnd/Klase/BazniParamKonekcije.xml');
     $KonekcijaObject->connect();
-    
-    // ako je uspesno ostvarena konekcija na DB, pozovi pogled i funkciju koja vraca podatke
+    // ako je uspesno ostvarena konekcija na DB uradi sledece
     if($KonekcijaObject->konekcijaDB){
         require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSeceV.php";
         $ZakazaneSeceViewObject = new DBZakazaneSece($KonekcijaObject,"zakazanaseca");
-        if(isset($_POST['filtriraj'])){
-            $filter=$_POST['filter'];
-            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecamaPlacenimUnapred($filter);;
-        }else{
-            $filter=null;
-            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecamaPlacenimUnapred($filter);;
+        if(isset($_GET['filtriraj'])){
+            $filter=$_GET['filter'];
+            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecamaPlacenimUnapred($filter);
         }
     }else{
         echo"Neuspesna konekcija";
@@ -41,65 +36,57 @@
 </head>
 <body class="body-stampa">
 <section>
-    <div class="stampa__h1">
-        <h1>PARAMETARSKA ŠTAMPA</h1>
-    </div>
-    <div class="stampa__p">
-        <p>Seče sa plaćanjem unapred:</p>
-    </div>
-        <?php
+                <div class="stampa__h1">
+                    <h1>PARAMETARSKA ŠTAMPA</h1>
+                 </div>
+            <form name="pretraga" class="stampa__pretragaForm">
+               <div class="seca__pretragaBar">
+               <label for="filter" class="label">Vrsta Drveta</label>
+               <input type="combobox" name="filter" id="filter" class="input" list="vrstaLista" placeholder="--Vrsta Drveta--">
+                    <datalist id="vrstaLista">
+                    <?php
+                        if ($ZakazaneSeceViewObject->BrojZapisa==0)
+                        {
+                            echo '<option value="Nema Zapisa">';
+                        }else{
+                            for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceViewObject->BrojZapisa; $RBZapisa++){
+                                $ID=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,0);
+                                $Vrsta=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,1);
+                                echo'<option value="'.$Vrsta.'">';
+                            }
+                        }
+                    ?>
+                    </datalist>
+                    <button class="stampa__filterBtn button" type="submit" name="filtriraj"><img src="/SECA-SUMA/FrontEnd/Assets/Search_icon.png" alt="search.png"></button>
+               </div>
+            </form>
+            <?php
             if ($ZakazaneSeceViewObject->BrojZapisa==0)
             {
                 echo "nema zapisa!";
             }
         else
             {
-               $BrojObjekata = 0;
-               echo' <table>';
-               echo' <thead>';
-               echo'     <tr>';
-               echo'         <th>R.Broj</th>';
-               echo'         <th>VrstaDrveta</th>';
-               echo'         <th>PovrsinaSume</th>';
-               echo'         <th>Datum</th>';
-               echo'         <th>Neto</th>';
-               echo'         <th>Trosak</th>';
-               echo'         <th>Mesto</th>';
-               echo'         <th>Placeno Unapred</th>';
-               echo'     </tr>';
-               echo' </thead>';
-               echo'<tbody>';
-
                for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceViewObject->BrojZapisa; $RBZapisa++){
-                $DoprinosID=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,0);
+                $Rbroj = $RBZapisa + 1;
                 $VrstaDrveta=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,1);
                 $PovrsinaSume=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,2);
                 $Datum=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,3);
                 $Neto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,4);
-                $Mesto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,5);
-                $Trosak=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,6);
+                $Trosak=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,5);
+                $Mesto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,6);
                 $PlacenoUnapred=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,7);
 
-                if($PlacenoUnapred > 0){
-                    $BrojObjekata++;
-                    echo'<tr>';
-                    echo'<td>' .$BrojObjekata.'</td>';
-                    echo'<td>' .$VrstaDrveta. '</td>';
-                    echo'<td>' .$PovrsinaSume. ' m<sup>3</sup></td>';
-                    echo'<td>' .$Datum. '</td>';
-                    echo'<td>' .$Neto. ' $</td>';
-                    echo'<td>' .$Mesto. '</td>';
-                    echo'<td>' .$Trosak. ' $</td>';
-                    echo'<td>' .$PlacenoUnapred. ' $</td>';
-                    echo'</tr>';
-                }
-                
+                echo'<div class="stampa__izabranaSeca">';
+                echo'<div><p>Vrsta Drveta: </p><p>' .$VrstaDrveta. '</p></div>';
+                echo'<div><p>Povrsina Šume: </p><p>' .$PovrsinaSume. ' m<sup>3</sup></p></div>';
+                echo'<div><p>Datum: </p><p>' .$Datum. '</p></div>';
+                echo'<div><p>Neto: </p><p>'  .$Neto. ' $</p></div>';
+                echo'<div><p>Trosak: </p><p>' .$Trosak. ' $</p></div>';
+                echo'<div><p>Mesto: </p><p>' .$Mesto. '</p></div>';
+                echo'<div><p>PlacenoUnapred: </p><p>' .$PlacenoUnapred. ' $</p></div>';
+                echo'</div>';
                }
-               echo'</tbody>';
-               echo'</table>';
-               echo'<br>';
-               echo'<br>';
-               echo'Ukupan broj Zapisa:'.$BrojObjekata;
             }
             $KonekcijaObject->disconnect();
         ?>

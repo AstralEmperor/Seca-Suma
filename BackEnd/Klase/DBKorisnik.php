@@ -1,5 +1,5 @@
 <?php
-
+//  Upravlja svim funkcijama koje rade sa podatcima iz DB KORISNIK
 class DBKorisnik extends Tabela{
 // Atributi
 public $IDKorisnika;
@@ -63,7 +63,7 @@ public function PreuzmiPrezimePrijavljenogKorisnika($loginusername,$loginpasswor
     }
     return $prez;
 }
-// Proverava trenutno ulogovanog korisnika i vraca $prezime korisnika
+// Proverava trenutno ulogovanog korisnika i vraca $Ime i $prezime korisnika
 public function PreuzmiImeIPrezimePrijavljenogKorisnika($loginusername,$loginpassword){
     $korisnik="";
     $SQLKorisnik = "SELECT * FROM `".$this->OtvorenaKonekcija->KompletanNazivBazePodataka."`.`korisnik` WHERE

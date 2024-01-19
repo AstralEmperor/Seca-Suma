@@ -1,5 +1,6 @@
 <?php 
  
+//  Osnovna klasa, koja je direktno povezana na bazu podataka, sluzi kao medjusloj
  class Tabela{
 
 
@@ -21,6 +22,7 @@
         $this->TipMYSQL = $NovaOtvorenaKonekcija->VerzijaMySQLNaredbi;
  }
 
+//  Ucitava sve podatke, listu zapisa i samu kolekciju na osnovu kriterijuma sortiranja
 public function UcitajSve($KriterijumSortiranja)
     {
         $SQL = "select * from `".$this->$NazivBazePodataka."`.`".$this->NazivTabele."` ORDER BY ".$KriterijumSortiranja;
@@ -35,6 +37,7 @@ public function UcitajSve($KriterijumSortiranja)
         }
     }
 
+    // Ucitava sve podatke, listu zapisa i samu kolekciju
     public function UcitajSvePoUpitu($Upit)
     {
         if($this->TipMYSQL=="mysqli"){
@@ -47,6 +50,7 @@ public function UcitajSve($KriterijumSortiranja)
         }
     }
 
+    //  Ucitava sve filtriranje podatke
     public function UcitajSvaPoljaFiltrirano($KriterijumFiltriranja, $KriterijumSortiranja)
     {
         $SQL = "select * from `".$this->NazivBazePodataka."`.`".$this->NazivTabele."` 
@@ -63,7 +67,7 @@ public function UcitajSve($KriterijumSortiranja)
             $this->BrojZapisa = mysql_num_rows($this->Kolekcija);
         }
     }
-
+ //  Ucitava sve filtriranje podatke i preuzima njihove podatke
     public function UcitajPoljaFiltrirano($Polja, $KriterijumFiltriranja, $KriterijumSortiranja)
     {
         $SQL = "select ".$Polja."from `".$this->NazivBazePodataka."`.`".$this->NazivTabele."` WHERE
@@ -78,7 +82,7 @@ public function UcitajSve($KriterijumSortiranja)
             $this->BrojZapisa = mysql_num_rows($this->Kolekcija);
         }
     }
-
+// Preuzima se vrednost prvog zapisa koji zadovoljava kriterijuma
     public function DajVrednostJednogPoljaPrvogZapisa ($NazivTrazenogPolja, $KriterijumFiltriranja, $KriterijumSortiranja)
     {
         $SQL = "select ".$NazivTrazenogPolja." from `".$this->NazivBazePodataka."`.`".$this->NazivTabele."`
@@ -96,7 +100,7 @@ public function UcitajSve($KriterijumSortiranja)
         }
         return $Vrednost;
     }
-
+ // Prebacuje kolekciju podataka u listu podataka 
     public function PrebaciKolekcijuUListu($Kolekcija)
     {
         $ListaZapisa = array();
@@ -115,7 +119,7 @@ public function UcitajSve($KriterijumSortiranja)
         }
       return $ListaZapisa;
     }
-
+    // vraca elemenat liste u odnosu na redni broj polja
     public function DajVrednostPoRednomBrojuZapisaPoRBPolja($Kolekcija, $RBZapisa, $RBPolja)
     {
         if($this->TipMYSQL=="mysqli")
@@ -130,7 +134,7 @@ public function UcitajSve($KriterijumSortiranja)
         }
       return $Vrednost;
     }
-
+// Proverava da li postoji zapis u datoj listi unutar kriterijuma filtriranja
     public function PostojiZapis($KriterijumFiltriranja)
     {
         $SQL = "SELECT * FROM `".$this->NazivBazePodataka."`.`".$this->NazivTabele."` 
@@ -153,7 +157,7 @@ public function UcitajSve($KriterijumSortiranja)
         }
       return $postoji;
    }
-   
+    //  Izvrsavanja radnju u kojoj se poziva
     public function IzvrsiAktivanSQLUpit($AktivanSQLUpit)
     {
         if($this->TipMYSQL == "mysqli")

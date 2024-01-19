@@ -4,6 +4,7 @@ class Transakcija{
 
     private $OtvorenaKonekcija;
     private $VerzijaMySQLNaredbi;
+    
     // konstruktor
     public function __construct($NovaOtvorenaKonekcija)
     {
@@ -49,7 +50,7 @@ class Transakcija{
             mysql_query("ROLLBACK");
         }
     }
-
+    // Zatvaranje transakcije nakon njenog izvrsenja
     public function ZavrsiTransakciju($UtvrdjenaGreska){
      if($this->VerzijaMySQLNaredbi=="mysqli"){
         if(empty($UtvrdjenaGreska)){

@@ -56,7 +56,7 @@
             </div>
             <form name="pretraga" class="seca__pretragaForm">
                <div class="seca__pretragaBar">
-                    <input name="filter" id="filter" class="seca__Filter input" placeholder="Unesi vrednost">
+                    <input name="filter" id="filter" class="seca__Filter input" placeholder="Unesi vrednost" pattern="[A-Za-z]{1,12}" oninvalid="this.setCustomValidity('Molimo vas unesite 3 do 15 slova(A-z)')" oninput="setCustomValidity('')">
                     <button class="seca__filterBtn button" type="submit" name="filtriraj"><img src="/SECA-SUMA/FrontEnd/Assets/Search_icon.png" alt="search.png"></button>
                </div>
                <div class="seca__pretragaBar">
@@ -105,7 +105,7 @@
                 echo'<td>' .$Neto. '</td>';
                 echo'<td>' .$Mesto. '</td>';
                 echo'<td>' .$Trosak. '</td>';
-                echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Izmena/editovanjeSeca.php" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input class="input-slika" type="image" src="/SECA-SUMA/FrontEnd/Assets/edit-text.png" name="EditujSecu"></form></td>';
+                echo'<td><form class="otvaranjeEditFormeBtn" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input class="input-slika" type="image" src="/SECA-SUMA/FrontEnd/Assets/edit-text.png" name="EditujSecu"></form></td>';
                 echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Brisanje/ZakazaneSeceobrisi.php" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input class="input-slika" type="image"src="/SECA-SUMA/FrontEnd/Assets/trash-can.png" name="ObrisiSecu"></form></td>';
                 echo'</tr>';
                }
@@ -116,8 +116,8 @@
     </table>
 </div>
 </section>
-<div class="seca__formShow"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/ZakazaneSece_noveSece/zakazaneSece_dodajNovo.php"?></div>
-<div class="seca__formShow"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/Izmena/editovanjeSeca.php"?></div>
+<div class="seca__formDodajOtvori"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/ZakazaneSece_noveSece/zakazaneSece_dodajNovo.php"?></div>
+<div class="seca__formEditujOtvori"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/Izmena/editovanjeSeca.php"?></div>
     <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>
 </body>
 <script src="zakazaneSece.js"></script>

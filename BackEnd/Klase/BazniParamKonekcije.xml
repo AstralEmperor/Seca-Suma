@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- Konekcija na server i izabranu bazu podataka preko XAMPP -->
 <konekcija>
     <host>localhost</host>
     <korisnik>root</korisnik>

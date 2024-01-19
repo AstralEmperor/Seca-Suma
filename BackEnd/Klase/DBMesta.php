@@ -1,11 +1,11 @@
 <?php
-
+//  Upravlja svim funkcijama koje rade sa podatcima iz DB MESTO
 class DBMesto extends Tabela
 {
-    // ATRIBUTI
+// ATRIBUTI
 private $bazapodataka;
 private $UspehKonekcijeNaDBMS;
-//
+
 public $Mesto;
 public $UkupanBrojSeca;
 
@@ -22,6 +22,19 @@ public $UkupanBrojSeca;
         $StaraVrednostUkBrMesta = $this->DajVrednostJednogPoljaPrvogZapisa('UkupanBrojSeca', $KriterijumFiltriranja , 'Mesto');
 
         $NovaVrednostUkBrMesta = $StaraVrednostUkBrMesta + 1;
+
+        $SQL = "UPDATE `".$this->NazivBazePodataka."`.`MESTO` SET UkupanBrojSeca=".$NovaVrednostUkBrMesta." WHERE Mesto='".$IDMesto."'";
+        $greska= $this->IzvrsiAktivanSQLUpit($SQL);
+
+        return $greska;
+    }
+    // Dekrementuje broj Ukupnog Broja Seca po mestu prilikom prizanja zapisa
+    public function DekrementirajUkupanBrojSecaPoMestu($IDMesto)
+    {
+        $KriterijumFiltriranja = "Mesto='".$IDMesto."'";
+        $StaraVrednostUkBrMesta = $this->DajVrednostJednogPoljaPrvogZapisa('UkupanBrojSeca', $KriterijumFiltriranja , 'Mesto');
+
+        $NovaVrednostUkBrMesta = $StaraVrednostUkBrMesta + -1;
 
         $SQL = "UPDATE `".$this->NazivBazePodataka."`.`MESTO` SET UkupanBrojSeca=".$NovaVrednostUkBrMesta." WHERE Mesto='".$IDMesto."'";
         $greska= $this->IzvrsiAktivanSQLUpit($SQL);

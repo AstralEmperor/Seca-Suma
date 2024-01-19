@@ -15,6 +15,6 @@
                     <input id="sifra" name="sifra" type="password" placeholder="Šifra" pattern="[A-Za-z0-9]{3,12}" oninvalid="this.setCustomValidity('Molimo vas unesite 3 do 15 slova(A-z, 0-9)')" oninput="setCustomValidity('')" required>
                 </div>
             </div>
-            <button class="login__btn" type="submit">Prijavi se</button>
+            <input class="login__btn button" type="submit" value="Prijavi se">
         </form>
 <script src="/SECA-SUMA/FrontEnd/src/Delovi/Login/login.js"></script>

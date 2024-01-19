@@ -1,22 +1,35 @@
 const izlazBtn = document.querySelector('.dodajNovi__cancel');
-const forma = document.querySelector('.seca__formShow');
+
+const dodajForma = document.querySelector('.seca__formDodajOtvori');
+const editujForma = document.querySelector('.seca__formEditujOtvori');
+
 const otvaranjeFormeBtn= document.querySelector('.seca__dodajNovu');
-const dodajNovePodatkeBtn = document.querySelector('.dodajNovi__addBtn');
+const otvaranjeEditFormeBtn = document.querySelector('.edituj__snimiBtn');
+
+const dodajNovePodatkeBtn = document.querySelector('.dodajNovi__snimiBtn');
 
 // izvrsava otvaranje forme za dodavanje nove sece, preventira reload(default behaviour)
-function otvoriFormu(){
+function otvoriDodajSecuFormu(){
     otvaranjeFormeBtn.addEventListener('click', e =>{
         e.preventDefault();
-        forma.classList.add('seca__activeForm');
+        dodajForma.classList.add('seca__activeForm');
     })
 }
-otvoriFormu();
+otvoriDodajSecuFormu();
+
+function otvoriEditSecuFormu(){
+    otvaranjeEditFormeBtn.addEventListener('click', e =>{
+        e.preventDefault();
+        editujForma.classList.add('seca__activeForm');
+    })
+}
+otvoriEditSecuFormu();
 
 // izvrsava zatvaranje forme za dodavanje nove sece, preventira reload(default behaviour)
 function zatvoriFormu(){
     izlazBtn.addEventListener('click', e =>{
         e.preventDefault();
-        forma.classList.remove('seca__activeForm');
+        dodajForma.classList.remove('seca__activeForm');
     })
 }
 zatvoriFormu();

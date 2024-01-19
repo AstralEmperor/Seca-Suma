@@ -52,12 +52,12 @@
                     </select>
                 </div>
                 <div class="dodajNovi__inputWrap">
-                    <label for="PlacenoUnapred" class="label">Placeno Unapred($)</label>
+                    <label for="placenoUnapred" class="label">Placeno Unapred($)</label>
                     <input name="placenoUnapred" id="placenoUnapred" class="input" type="text" placeholder="Troškovi u radu" pattern="[0-9]{1,10}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 10 brojeva')" oninput="setCustomValidity('')" value="0">
                 </div>
             </div>
             <div class="dodajNovi__addBtnWrap">
-              <button class="button dodajNovi__addBtn" name="submit" type="submit">UPIŠI</button>
+              <button class="button dodajNovi__snimiBtn" name="submit" type="submit">UPIŠI</button>
             </div>
         </form>
     </section>
