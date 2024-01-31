@@ -1,5 +1,5 @@
 <?php
-
+// Klasa bazne transakcije 
 class Transakcija{
 
     private $OtvorenaKonekcija;

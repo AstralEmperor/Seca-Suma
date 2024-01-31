@@ -1,4 +1,5 @@
 <?php
+//  Upravlja svim funkcijama koje rade sa podatcima iz DB ZAKAZANASECA, nasledjuje klasu TABELA
     class DBZakazaneSece extends Tabela{
          // Poziva pogled `SVEZAKAZANESECE`, gde je filter parametar VrstaDrveta
         public function DajSvePodatkeOZakazanimSecama($filterParametar){

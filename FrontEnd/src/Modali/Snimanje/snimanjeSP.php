@@ -44,12 +44,6 @@
         $ZakazaneSeceObject->PlacenoUnapred=$PlacenoUnapred;
         $greska1 = $ZakazaneSeceObject->DodajNovuSecu();
 		
-		// inkrement broja studenata kroz klasu DBSmer
-        // require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBMesta.php";
-        // $MestoObject= new DBMesto($KonekcijaObject,'mesto');
-        // $greska2=$MestoObject->InkrementirajUkupanBrojSecaPoMestu($Mesto);
-		
-		//$UtvrdjenaGreska=$greska1 ili $greska2;
 		$UtvrdjenaGreska=$greska1.$greska2;
 		$TransakcijaObject->ZavrsiTransakciju($UtvrdjenaGreska);
         	

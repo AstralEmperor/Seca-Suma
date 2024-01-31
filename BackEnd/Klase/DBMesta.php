@@ -1,5 +1,5 @@
 <?php
-//  Upravlja svim funkcijama koje rade sa podatcima iz DB MESTO
+//  Upravlja svim funkcijama koje rade sa podatcima iz DB MESTO, nasledjuje klasu TABELA
 class DBMesto extends Tabela
 {
 // ATRIBUTI

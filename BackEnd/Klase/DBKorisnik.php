@@ -1,5 +1,5 @@
 <?php
-//  Upravlja svim funkcijama koje rade sa podatcima iz DB KORISNIK
+//  Upravlja svim funkcijama koje rade sa podatcima iz DB KORISNIK, nasledjuje klasu TABELA
 class DBKorisnik extends Tabela{
 // Atributi
 public $IDKorisnika;

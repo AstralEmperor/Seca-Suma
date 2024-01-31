@@ -1,5 +1,5 @@
 <?php
-//  Upravlja svim funkcijama koje rade sa podatcima iz DB ZAKAZANASECA
+//  Upravlja svim funkcijama koje rade sa podatcima iz DB ZAKAZANASECA, nasledjuje klasu TABELA
 class DBZakazaneSece extends Tabela 
 {
     private $bazapodataka;

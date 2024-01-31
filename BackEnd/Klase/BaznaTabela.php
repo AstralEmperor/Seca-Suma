@@ -3,7 +3,6 @@
 //  Osnovna klasa, koja je direktno povezana na bazu podataka, sluzi kao medjusloj
  class Tabela{
 
-
  public $OtvorenaKonekcija;
  public $NazivBazePodataka;
  public $NazivTabele;
