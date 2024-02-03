@@ -32,7 +32,7 @@
    if($KonekcijaObject->konekcijaDB){
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSece.php";
     $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject, 'zakazanaseca');
-    $greska = $ZakazaneSeceObject->IzmeniZakazanuSecu($StariDoprinosID, $DoprinosID, $VrstaDrveta, $PovrsinaSume, $Datum, $Neto, $Mesto, $Trosak);
+    $greska = $ZakazaneSeceObject->IzmeniZakazanuSecu($StariDoprinosID, $DoprinosID, $VrstaDrveta, $PovrsinaSume, $Datum, $Neto, $Trosak, $Mesto, $PlacenoUnapred);
    }else{
     echo "Nije uspostavljena konekcija sa bazom podataka!";
    }

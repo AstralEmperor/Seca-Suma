@@ -22,9 +22,9 @@ class DBZakazaneSece extends Tabela
         return $this->Kolekcija;
     }
     // ucitava sve sece po vrsti drveta
-    public function UcitajSecePoVrstiDrveta($VrstaDrvetaParametar)
+    public function UcitajSecuPoId($DoprinosIDParametar)
     {
-        $SQL = "select * from `ZAKAZANASECA` WHERE `VrstaDrveta`='".$VrstaDrvetaParametar."'";
+        $SQL = "select * from `ZAKAZANASECA` WHERE `DoprinosID`='".$DoprinosIDParametar."'";
         $this->UcitajSvePoUpitu($SQL);
     }
     // funkcija dodavanje nove sece preuzimanjem odgovarajucih inputa
@@ -44,11 +44,11 @@ class DBZakazaneSece extends Tabela
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
         return $greska;
     }
-    // Izmenjuje zakazanu secu
+    // Izmenjuje izabranu zakazanu secu novo unetim podatcima
     public function IzmeniZakazanuSecu($StariDoprinosID, $DoprinosID, $VrstaDrveta, $PovrsinaSume, $Datum, $Neto, $Trosak, $Mesto, $PlacenoUnapred)
     {
-        $SQL = "UPDATE `ZAKAZANASECA` SET VrstaDrveta='".$VrstaDrveta."', PovrsinaSume=".$PovrsinaSume.", Datum='".$Datum."', Neto=".$Neto.", Trosak=".$Trosak." ,Mesto='".$Mesto."',PlacenoUnapred=".$PlacenoUnapred."
-        WHERE DoprinosID='.$StariDoprinosID.'";
+        $SQL = "UPDATE `ZAKAZANASECA` SET DoprinosID='".$DoprinosID."', VrstaDrveta='".$VrstaDrveta."', PovrsinaSume='".$PovrsinaSume."', Datum='".$Datum."', Neto='".$Neto."', Trosak='".$Trosak."' ,Mesto='".$Mesto."',PlacenoUnapred='".$PlacenoUnapred."'
+        WHERE DoprinosID='".$StariDoprinosID."'";
         
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
 

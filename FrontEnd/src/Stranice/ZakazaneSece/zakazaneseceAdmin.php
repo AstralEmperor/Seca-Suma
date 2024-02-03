@@ -105,7 +105,7 @@
                 echo'<td>' .$Neto. '</td>';
                 echo'<td>' .$Mesto. '</td>';
                 echo'<td>' .$Trosak. '</td>';
-                echo'<td><form class="otvaranjeEditFormeBtn" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input class="input-slika" type="image" src="/SECA-SUMA/FrontEnd/Assets/edit-text.png" name="EditujSecu"></form></td>';
+                echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Izmena/editovanjeSeca.php" class="otvaranjeEditFormeBtn" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input class="input-slika" type="image" src="/SECA-SUMA/FrontEnd/Assets/edit-text.png" name="EditujSecu"></form></td>';
                 echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Brisanje/ZakazaneSeceobrisi.php" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input class="input-slika" type="image"src="/SECA-SUMA/FrontEnd/Assets/trash-can.png" name="ObrisiSecu"></form></td>';
                 echo'</tr>';
                }
@@ -117,7 +117,7 @@
 </div>
 </section>
 <div class="seca__formDodajOtvori"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/ZakazaneSece_noveSece/zakazaneSece_dodajNovo.php"?></div>
-<div class="seca__formEditujOtvori"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/Izmena/editovanjeSeca.php"?></div>
+
     <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>
 </body>
 <script src="zakazaneSece.js"></script>
