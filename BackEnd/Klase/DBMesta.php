@@ -15,28 +15,28 @@ public $UkupanBrojSeca;
         $SQL = "select * from `MESTO` ORDER BY Mesto ASC";
         $this->UcitajSvePoUpitu($SQL);    
     }
-// Inkrementira broj Ukupnog Broja Seca po mestu
+// Inkrementira broj Ukupnog Broja Seca po mestu i inkrementuj ukupan broj mesta
     public function InkrementirajUkupanBrojSecaPoMestu($IDMesto)
     {
         $KriterijumFiltriranja = "Mesto='".$IDMesto."'";
-        $StaraVrednostUkBrMesta = $this->DajVrednostJednogPoljaPrvogZapisa('UkupanBrojSeca', $KriterijumFiltriranja , 'Mesto');
+        $StaraVrednostUkBrMesta = $this->DajVrednostJednogPoljaPrvogZapisa('UkupanBrojSeca', $KriterijumFiltriranja , 'UkupanBrojSeca');
 
         $NovaVrednostUkBrMesta = $StaraVrednostUkBrMesta + 1;
 
-        $SQL = "UPDATE `".$this->NazivBazePodataka."`.`MESTO` SET UkupanBrojSeca=".$NovaVrednostUkBrMesta." WHERE Mesto='".$IDMesto."'";
+        $SQL = "UPDATE `".$this->NazivBazePodataka."`.`MESTO` SET UkupanBrojSeca='".$NovaVrednostUkBrMesta."' WHERE Mesto='".$IDMesto."'";
         $greska= $this->IzvrsiAktivanSQLUpit($SQL);
 
         return $greska;
     }
-    // Dekrementuje broj Ukupnog Broja Seca po mestu prilikom prizanja zapisa
+    // Dekrementuje broj Ukupnog Broja Seca po mestu prilikom prizanja zapisa i dekrementuj ukupan broj zapisa
     public function DekrementirajUkupanBrojSecaPoMestu($IDMesto)
     {
-        $KriterijumFiltriranja = "Mesto='".$IDMesto."'";
-        $StaraVrednostUkBrMesta = $this->DajVrednostJednogPoljaPrvogZapisa('UkupanBrojSeca', $KriterijumFiltriranja , 'Mesto');
+      $KriterijumFiltriranja = "Mesto='".$IDMesto."'";
+        $StaraVrednostUkBrMesta = $this->DajVrednostJednogPoljaPrvogZapisa('UkupanBrojSeca', $KriterijumFiltriranja , 'UkupanBrojSeca');
 
-        $NovaVrednostUkBrMesta = $StaraVrednostUkBrMesta + -1;
+        $NovaVrednostUkBrMesta = $StaraVrednostUkBrMesta - 1;
 
-        $SQL = "UPDATE `".$this->NazivBazePodataka."`.`MESTO` SET UkupanBrojSeca=".$NovaVrednostUkBrMesta." WHERE Mesto='".$IDMesto."'";
+        $SQL = "UPDATE `".$this->NazivBazePodataka."`.`MESTO` SET UkupanBrojSeca='".$NovaVrednostUkBrMesta."' WHERE Mesto='".$IDMesto."'";
         $greska= $this->IzvrsiAktivanSQLUpit($SQL);
 
         return $greska;
@@ -78,8 +78,7 @@ public $UkupanBrojSeca;
 
     public function IzmeniMesto($NovoMesto, $NoviUkupanBrojSeca)
     {
-        $SQL = "UPDATE `MESTO` SET Mesto='".$NovoMesto."',
-        UkupanBrojSeca = ".$NoviUkupanBrojSeca." WHERE Mesto=".$IdZaIzmenu;
+        $SQL = "UPDATE `MESTO` SET Mesto='".$NovoMesto."', WHERE Mesto='".$IdZaIzmenu."'";
 
         $greska=$this->IzvrsiAktivanSQLUpit($SQL);
 

@@ -33,20 +33,27 @@
 		$TransakcijaObject = new Transakcija($KonekcijaObject);
 		$TransakcijaObject->ZapocniTransakciju();
 		
+        // pozivanje funkcije procedure
         require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSeceSP.php";
 	    $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject, 'zakazanaseca');
         $ZakazaneSeceObject->VrstaDrveta=$VrstaDrveta;
-        $ZakazaneSeceObject->PovrsinaSume=$Datum;
+        $ZakazaneSeceObject->PovrsinaSume=$PovrsinaSume;
         $ZakazaneSeceObject->Datum=$Datum;
         $ZakazaneSeceObject->Neto=$Neto;
         $ZakazaneSeceObject->Mesto=$Mesto;
         $ZakazaneSeceObject->Trosak=$Trosak;
         $ZakazaneSeceObject->PlacenoUnapred=$PlacenoUnapred;
         $greska1 = $ZakazaneSeceObject->DodajNovuSecu();
+        	
+        // inkrementacija broja seca kroz klasu Mesto
+        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBMesta.php";;
+		$MestoObject = new DBMesto($KonekcijaObject, 'mesto');
+		$greska2=$MestoObject->InkrementirajUkupanBrojSecaPoMestu($Mesto);
 		
+		// zatvaranje transakcije
 		$UtvrdjenaGreska=$greska1.$greska2;
 		$TransakcijaObject->ZavrsiTransakciju($UtvrdjenaGreska);
-        	
+
 		}
       // ZATVARANJE KONEKCIJE KA DBMS
 	  $KonekcijaObject->disconnect();
@@ -63,4 +70,4 @@
 	 }
 		
 	  
-      ?>
+?>

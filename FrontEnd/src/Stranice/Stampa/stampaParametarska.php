@@ -19,7 +19,10 @@
         $ZakazaneSeceViewObject = new DBZakazaneSece($KonekcijaObject,"zakazanaseca");
         if(isset($_GET['filtriraj'])){
             $filter=$_GET['filter'];
-            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecamaPlacenimUnapred($filter);
+            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecama($filter);
+        }else{
+            $filter=null;
+            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecama($filter);
         }
     }else{
         echo"Neuspesna konekcija";
@@ -35,10 +38,11 @@
     <title>Štampa</title>
 </head>
 <body class="body-stampa">
-<section>
-                <div class="stampa__h1">
-                    <h1>PARAMETARSKA ŠTAMPA</h1>
-                 </div>
+<?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/headerAdmin.php"?>
+  <section class="index">
+            <div class="stampa__h1">
+                 <h1>PARAMETARSKA ŠTAMPA</h1>
+             </div>
             <form name="pretraga" class="stampa__pretragaForm">
                <div class="seca__pretragaBar">
                <label for="filter" class="label">Vrsta Drveta</label>
@@ -58,15 +62,15 @@
                     ?>
                     </datalist>
                     <button class="stampa__filterBtn button" type="submit" name="filtriraj"><img src="/SECA-SUMA/FrontEnd/Assets/Search_icon.png" alt="search.png"></button>
-               </div>
-            </form>
-            <?php
-            if ($ZakazaneSeceViewObject->BrojZapisa==0)
-            {
-                echo "nema zapisa!";
-            }
-        else
-            {
+                </div>
+                </form>
+                <?php
+                if ($ZakazaneSeceViewObject->BrojZapisa==0)
+                {
+                    echo "nema zapisa!";
+                }
+            else
+                {
                for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceViewObject->BrojZapisa; $RBZapisa++){
                 $Rbroj = $RBZapisa + 1;
                 $VrstaDrveta=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,1);
@@ -75,8 +79,7 @@
                 $Neto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,4);
                 $Trosak=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,5);
                 $Mesto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,6);
-                $PlacenoUnapred=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,7);
-
+            
                 echo'<div class="stampa__izabranaSeca">';
                 echo'<div><p>Vrsta Drveta: </p><p>' .$VrstaDrveta. '</p></div>';
                 echo'<div><p>Povrsina Šume: </p><p>' .$PovrsinaSume. ' m<sup>3</sup></p></div>';
@@ -84,13 +87,13 @@
                 echo'<div><p>Neto: </p><p>'  .$Neto. ' $</p></div>';
                 echo'<div><p>Trosak: </p><p>' .$Trosak. ' $</p></div>';
                 echo'<div><p>Mesto: </p><p>' .$Mesto. '</p></div>';
-                echo'<div><p>PlacenoUnapred: </p><p>' .$PlacenoUnapred. ' $</p></div>';
+                echo '<h3>'.$Rbroj.'</h3>';
                 echo'</div>';
                }
             }
             $KonekcijaObject->disconnect();
         ?>
-        <input class="button" type="submit" name="stampaj" value="STAMPAJ">
+        <input class="button stampaj" type="submit" name="stampaj" value="STAMPAJ">
 </section>
     <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>
 </body>

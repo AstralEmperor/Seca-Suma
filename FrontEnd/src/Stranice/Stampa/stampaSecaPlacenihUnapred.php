@@ -40,7 +40,8 @@
     <title>Štampa</title>
 </head>
 <body class="body-stampa">
-<section>
+<?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/headerAdmin.php"?>
+  <section class="index">
     <div class="stampa__h1">
         <h1>Seča šuma sa plaćanjem u napred</h1>
     </div>
@@ -76,8 +77,8 @@
                 $PovrsinaSume=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,2);
                 $Datum=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,3);
                 $Neto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,4);
-                $Mesto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,5);
-                $Trosak=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,6);
+                $Trosak=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,5);
+                $Mesto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,6);
                 $PlacenoUnapred=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,7);
 
                 if($PlacenoUnapred > 0){
@@ -88,12 +89,11 @@
                     echo'<td>' .$PovrsinaSume. ' m<sup>3</sup></td>';
                     echo'<td>' .$Datum. '</td>';
                     echo'<td>' .$Neto. ' $</td>';
-                    echo'<td>' .$Mesto. '</td>';
                     echo'<td>' .$Trosak. ' $</td>';
+                    echo'<td>' .$Mesto. '</td>';
                     echo'<td>' .$PlacenoUnapred. ' $</td>';
                     echo'</tr>';
                 }
-                
                }
                echo'</tbody>';
                echo'</table>';
@@ -103,7 +103,7 @@
             }
             $KonekcijaObject->disconnect();
         ?>
-        <input class="button" type="submit" name="stampaj" value="STAMPAJ">
+        <input class="button stampaj" type="submit" name="stampaj" value="STAMPAJ">
 </section>
     <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>
 </body>

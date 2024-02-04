@@ -56,12 +56,12 @@
         <form class="edituj__form" action="/Seca-Suma/FrontEnd/src/Modali/Izmena/izmenaZakazaneSece.php" method="POST">
         <input type="hidden" name="DoprinosID" value="<?php echo $StariDoprinosID;?>">
          <input type="hidden" name="StariDoprinosID" value="<?php echo $StariDoprinosID;?>">
-            <div class="edituj__h3Wrap">
-                 <h3>Promeni Zakazanu Seču</h1>
-            </div>
             <!-- CANCEL FORM -->
             <div class="edituj__cancelWrap">
                 <button class="edituj__cancel"><img src="/SECA-SUMA/FrontEnd/Assets/cancel_icon.png" alt="Exit_form.jpg"></button>
+            </div>
+            <div class="edituj__h3Wrap">
+                 <h3>Promeni Zakazanu Seču</h1>
             </div>
             <!-- INPUT FIELD -->
             <div class="edituj__inputContainer">
@@ -91,7 +91,7 @@
                         <?php
                             if ($UkupanBrojZapisa>0) 
                             {
-                                echo "<option value=\"$StaroMesto\">$StaroMesto</option>";		
+                                echo "<option value=\"$StaroMesto\">$StaroMesto</option>";
                                 for ($brojacMesta = 0; $brojacMesta < $UkupanBrojZapisa; $brojacMesta++) 
                                     {
                                         $Mesto =$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisa, $brojacMesta, 0);				

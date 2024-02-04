@@ -40,7 +40,8 @@
     <title>Štampa</title>
 </head>
 <body class="body-stampa">
-<section>
+<?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/headerAdmin.php"?>
+  <section class="index">
     <div class="stampa__h1">
         <h1>SPISAK ZAKAZANIH SEČA</h1>
     </div>
@@ -97,7 +98,7 @@
             }
             $KonekcijaObject->disconnect();
         ?>
-        <input class="button" type="submit" name="stampaj" value="STAMPAJ">
+        <input class="button stampaj" type="submit" name="stampaj" value="STAMPAJ">
 </section>
     <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>
 </body>

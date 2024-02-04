@@ -38,9 +38,9 @@ values
 
 insert into `SUME`.`MESTO` (Mesto,UkupanBrojSeca)
 values
-("Niš", 0),
-("Zrenjanin", 0),
-("Novi Sad", 0);
+("Niš", 1),
+("Zrenjanin", 2),
+("Novi Sad", 1);
 
 insert into `SUME`.`ZAKAZANASECA` (VrstaDrveta, PovrsinaSume, Datum, Neto, Mesto, Trosak, PlacenoUnapred) 
 values 

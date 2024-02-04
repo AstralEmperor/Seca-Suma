@@ -1,4 +1,3 @@
-
 <meta charset="UTF-8">
     <head>
         <link href="/SECA-SUMA/style.css" type="text/css" rel="stylesheet">
@@ -39,16 +38,16 @@
                     <label for="mesto" class="label">Mesto*</label>
                     <select type="combobox" name="mesto" id="mesto" class="input" placeholder="--Mesto--" required>
                     <?php
-                        if ($ZakazaneSeceViewObject->BrojZapisa==0)
-                        {
-                            echo "nema zapisa!";
-                        }else {
-                            for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceViewObject->BrojZapisa; $RBZapisa++){
-                                $Mesto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,6);
-                                echo'<option value="'.$Mesto.'">'.$Mesto.'</option>';
-                            }
-                        }
-                    ?>
+                            if ($UkupanBrojZapisa>0) 
+                            {		
+                                for ($brojacMesta = 0; $brojacMesta < $UkupanBrojZapisa; $brojacMesta++) 
+                                    {
+                                        $Mesto =$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisa, $brojacMesta, 0);				
+                                        $UkupanBrojSeca=$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisa, $brojacMesta, 1);				
+                                        echo "<option value=\"$Mesto\">$Mesto</option>";						
+                                    }                         
+                            }  
+                        ?>         
                     </select>
                 </div>
                 <div class="dodajNovi__inputWrap">

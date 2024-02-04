@@ -61,3 +61,9 @@ hr{
     border-bottom:1px solid var(--button-primary-border);
     gap:6rem;
 }
+h3{
+    text-align: center;
+}
+.stampaj{
+    margin-bottom:5rem;
+}

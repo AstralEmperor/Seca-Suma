@@ -90,7 +90,7 @@ public function UcitajSve($KriterijumSortiranja)
         if($this->TipMYSQL=="mysqli")
         {
             $Kolekcija = mysqli_query($this->OtvorenaKonekcija->konekcijaDB, $SQL);
-            $row = mysqli_query($this->OtvorenaKonekcija->konekcijaDB, $SQL);
+            $row = mysqli_fetch_array($Kolekcija, MYSQLI_NUM);
             $Vrednost=$row [0];
         }
         else{
