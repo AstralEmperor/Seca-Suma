@@ -4,12 +4,12 @@
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php";
 	   // proverava informacije u sesiji za korisnika
 	   $korisnik=$_SESSION["korisnik"];
+       $ovlascenje=$_SESSION["ovlascenje"];
       
 	  // ako korisnik nije prijavljen, vraca ga na pocetnu stranicu
 				if (!isset($korisnik)){
 					header ('Location:/Seca-Suma/index.php');
 				}	
-
 
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaTabela.php";
     $KonekcijaObject = new Konekcija($_SERVER['DOCUMENT_ROOT'] . '/SECA-SUMA/BackEnd/Klase/BazniParamKonekcije.xml');
@@ -56,9 +56,16 @@
         <h1 class="seca__h1">Evidencija Seča Šuma</h1>
     </div>
         <div class="seca__optionsWrap">
-        <div class="seca__addBtnWrap">
-                <button class="seca__dodajNovu button">ZAKAŽI SEČU</button>
-            </div>
+            <?php 
+            if($ovlascenje === "admin"){
+                echo'<div class="seca__addBtnWrap">';
+                echo' <button class="seca__dodajNovu button">ZAKAŽI SEČU</button>';
+                echo'</div>';
+                }
+                else{
+                echo '';
+              }
+            ?>
             <form name="pretraga" class="seca__pretragaForm">
                <div class="seca__pretragaBar">
                     <input name="filter" id="filter" class="seca__Filter input" placeholder="Unesi vrednost" pattern="[A-Za-z]{1,12}" oninvalid="this.setCustomValidity('Molimo vas unesite 3 do 15 slova(A-z)')" oninput="setCustomValidity('')">
@@ -86,8 +93,10 @@
                echo'         <th>Neto($)</th>';
                echo'         <th>Trosak($)</th>';
                echo'         <th>Mesto</th>';
+               if($ovlascenje === "admin"){
                echo'         <th>Edituj</th>';
                echo'         <th>Obrisi</th>';
+               }
                echo'     </tr>';
                echo' </thead>';
                echo'<tbody class="seca__tableBody">';
@@ -110,8 +119,10 @@
                 echo'<td>' .$Neto. '</td>';
                 echo'<td>' .$Trosak. '</td>';
                 echo'<td>' .$Mesto. '</td>';
+                if($ovlascenje === "admin"){
                 echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Izmena/editovanjeSeca.php" class="otvaranjeEditFormeBtn" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input class="input-slika" type="image" src="/SECA-SUMA/FrontEnd/Assets/edit-text.png" name="EditujSecu"></form></td>';
                 echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Brisanje/ZakazaneSeceobrisi.php" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input type="hidden" name="mesto" value='.$Mesto.'><input class="input-slika" type="image"src="/SECA-SUMA/FrontEnd/Assets/trash-can.png" name="ObrisiSecu"></form></td>';
+                }
                 echo'</tr>';
                }
             }

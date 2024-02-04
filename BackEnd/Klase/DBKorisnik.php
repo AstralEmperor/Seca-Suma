@@ -81,6 +81,22 @@ public function PreuzmiImeIPrezimePrijavljenogKorisnika($loginusername,$loginpas
     }
     return $korisnik;
 }
+// Proverava ovlascenje korisnika( da li je admin ili korisnik)
+public function PreuzmiOvlascenjeKorisnika($loginusername,$loginpassword){
+    $korisnik="";
+    $SQLKorisnik = "SELECT * FROM `".$this->OtvorenaKonekcija->KompletanNazivBazePodataka."`.`korisnik` WHERE
+    KorisnickoIme='".$loginusername."' AND Sifra='".$loginpassword."'";
+    $this->UcitajSvePoUpitu($SQLKorisnik);
+    $this->PrebaciKolekcijuUListu($this->Kolekcija);
+    if($this->BrojZapisa>0){
+        foreach($this->ListaZapisa as $VrednostCvoraListe){
+            $ovlascenje = $VrednostCvoraListe[6];
+        }
+    }else{
+        $ovlascenje='Nepoznato Ovlascenje';
+    }
+    return $ovlascenje;
+}
 // Proverava trenutno ulogovanog korisnika i vraca $IDKorisnika korisnika
 public function PreuzmiIdPrijavljenogKorisnika($loginusername,$loginpassword){
     $id=0;

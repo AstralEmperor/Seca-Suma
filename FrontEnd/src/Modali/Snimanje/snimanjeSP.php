@@ -29,32 +29,40 @@
     //proverava da li je konekcija uspesna
 	if ($KonekcijaObject->konekcijaDB)
     {	
-        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaTransakcija.php";
-		$TransakcijaObject = new Transakcija($KonekcijaObject);
-		$TransakcijaObject->ZapocniTransakciju();
-		
-        // pozivanje funkcije procedure
-        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSeceSP.php";
-	    $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject, 'zakazanaseca');
-        $ZakazaneSeceObject->VrstaDrveta=$VrstaDrveta;
-        $ZakazaneSeceObject->PovrsinaSume=$PovrsinaSume;
-        $ZakazaneSeceObject->Datum=$Datum;
-        $ZakazaneSeceObject->Neto=$Neto;
-        $ZakazaneSeceObject->Mesto=$Mesto;
-        $ZakazaneSeceObject->Trosak=$Trosak;
-        $ZakazaneSeceObject->PlacenoUnapred=$PlacenoUnapred;
-        $greska1 = $ZakazaneSeceObject->DodajNovuSecu();
-        	
-        // inkrementacija broja seca kroz klasu Mesto
-        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBMesta.php";;
-		$MestoObject = new DBMesto($KonekcijaObject, 'mesto');
-		$greska2=$MestoObject->InkrementirajUkupanBrojSecaPoMestu($Mesto);
-		
-		// zatvaranje transakcije
-		$UtvrdjenaGreska=$greska1.$greska2;
-		$TransakcijaObject->ZavrsiTransakciju($UtvrdjenaGreska);
+        // Poslovna logika, proverava da li ima dozvoljen broj seca u jednom vremenskom roku
+        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/ProveraMesta.php";
+        $UnosObject = new zakazanopomestima($KonekcijaObject, 'zakazanaseca');
+        $dozvoljeneSece = $UnosObject->DaLiImaSlobodnihRezervacijaSeca($Mesto);
+        if($dozvoljeneSece == "DA"){
 
-		}
+            require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaTransakcija.php";
+            $TransakcijaObject = new Transakcija($KonekcijaObject);
+            $TransakcijaObject->ZapocniTransakciju();
+            
+            // pozivanje funkcije procedure
+            require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSeceSP.php";
+            $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject, 'zakazanaseca');
+            $ZakazaneSeceObject->VrstaDrveta=$VrstaDrveta;
+            $ZakazaneSeceObject->PovrsinaSume=$PovrsinaSume;
+            $ZakazaneSeceObject->Datum=$Datum;
+            $ZakazaneSeceObject->Neto=$Neto;
+            $ZakazaneSeceObject->Mesto=$Mesto;
+            $ZakazaneSeceObject->Trosak=$Trosak;
+            $ZakazaneSeceObject->PlacenoUnapred=$PlacenoUnapred;
+            $greska1 = $ZakazaneSeceObject->DodajNovuSecu();
+                
+            // inkrementacija broja seca kroz klasu Mesto
+            require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBMesta.php";;
+            $MestoObject = new DBMesto($KonekcijaObject, 'mesto');
+            $greska2=$MestoObject->InkrementirajUkupanBrojSecaPoMestu($Mesto);
+            
+            // zatvaranje transakcije
+            $UtvrdjenaGreska=$greska1.$greska2;
+            $TransakcijaObject->ZavrsiTransakciju($UtvrdjenaGreska);
+        }else{
+            $UtvrdjenaGreska = "Ne mozete uneti jos seca na zadatom mestu!";
+        }
+	  }
       // ZATVARANJE KONEKCIJE KA DBMS
 	  $KonekcijaObject->disconnect();
 	

@@ -18,6 +18,7 @@ session_start();
             $_SESSION["ime"] = $objKorisnik->PreuzmiImePrijavljenogKorisnika($loginUserName,$loginPassword);
             $_SESSION["idkorisnika"] = $objKorisnik->PreuzmiIdPrijavljenogKorisnika($loginUserName,$loginPassword);
             $_SESSION["korisnik"] = $objKorisnik->PreuzmiImeIPrezimePrijavljenogKorisnika($loginUserName,$loginPassword);
+            $_SESSION["ovlascenje"] = $objKorisnik->PreuzmiOvlascenjeKorisnika($loginUserName,$loginPassword);
 
             header('Location:/Seca-Suma/welcome.php');
         }else{
