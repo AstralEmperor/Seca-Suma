@@ -7,7 +7,7 @@
             header ('Location:/Seca-Suma/index.php');
         }
 
-        $StariDoprinosID = $_POST['DoprinosID'];
+        $StariSecaID = $_POST['SecaID'];
 
         // ostvaruje konekciju
         require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php";
@@ -23,25 +23,37 @@
         require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBMesta.php";
         $MestoObject = new DBMesto($KonekcijaObject, "mesto");
         $MestoObject->UcitajKolekcijuSvihMesta();
-        $KolekcijaZapisa = $MestoObject->Kolekcija;
-        $UkupanBrojZapisa = $MestoObject->BrojZapisa;
+        $KolekcijaZapisaMesta = $MestoObject->Kolekcija;
+        $UkupanBrojZapisaMesta = $MestoObject->BrojZapisa;
+
+        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBTrosak.php";
+        $TrosakObject = new DBTrosak($KonekcijaObject, "trosak");
+        $TrosakObject->UcitajKolekcijuSvihTroskova();
+        $KolekcijaZapisaTroskova = $TrosakObject->Kolekcija;
+        $UkupanBrojZapisaTroskova = $TrosakObject->BrojZapisa;
+    
+        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBPovrsina.php";
+        $PovrsinaObject = new DBPovrsina($KonekcijaObject, "povrsina");
+        $PovrsinaObject->UcitajKolekcijuSvihPovrsina();
+        $KolekcijaZapisaPovrsina = $PovrsinaObject->Kolekcija;
+        $UkupanBrojZapisaPovrsina = $PovrsinaObject->BrojZapisa;
 
         // Preuzima stare vrednosti iz izabrane Sece
         require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSece.php";
         $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject, 'zakazanaseca');
-        $ZakazaneSeceObject-> UcitajSecuPoId($StariDoprinosID);
+        $ZakazaneSeceObject-> UcitajSecuPoId($StariSecaID);
         $KolekcijaZapisaZakazanihSeca = $ZakazaneSeceObject->Kolekcija;
         $UkupanBrojZapisaZakazanihSeca = $ZakazaneSeceObject->BrojZapisa;
 
         if($UkupanBrojZapisaZakazanihSeca > 0){
             $row=0;
-            $StariDoprinosID=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row, 0);
+            $StariSecaID=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row, 0);
             $StaraVrstaDrveta=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row,1);
-            $StaraPovrsinaSume=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row,2);
+            $StaraPovrsinaSumeID=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row,2);
             $StariDatum=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row,3);
             $StariNeto=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row,4);
-            $StaroMesto=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row,5);
-            $StariTrosak=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row,6);
+            $StariTrosak=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row,5);
+            $StaroMesto=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row,6);
             $StaroPlacenoUnapred=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaZakazanihSeca, $row,7);
 
         }
@@ -54,8 +66,8 @@
     </head>
     <section class="edituj">
         <form class="edituj__form" action="/Seca-Suma/FrontEnd/src/Modali/Izmena/izmenaZakazaneSece.php" method="POST">
-        <input type="hidden" name="DoprinosID" value="<?php echo $StariDoprinosID;?>">
-         <input type="hidden" name="StariDoprinosID" value="<?php echo $StariDoprinosID;?>">
+        <input type="hidden" name="SecaID" value="<?php echo $StariSecaID;?>">
+         <input type="hidden" name="StariSecaID" value="<?php echo $StariSecaID;?>">
             <!-- CANCEL FORM -->
             <div class="edituj__cancelWrap">
                 <button class="edituj__cancel"><img src="/SECA-SUMA/FrontEnd/Assets/cancel_icon.png" alt="Exit_form.jpg"></button>
@@ -70,8 +82,20 @@
                     <input name="VrstaDrveta" id="VrstaDrveta" type="text" class="input" placeholder="Vrsta Drveta" pattern="[A-Za-z]{1,20}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 20 karaktera')" oninput="setCustomValidity('')"  required value="<?php echo $StaraVrstaDrveta; ?>">
                 </div>
                 <div class="edituj__inputWrap">
-                    <label for="PovrsinaSume" class="label">Površina Šume(m3)*</label>
-                    <input name="PovrsinaSume" id="PovrsinaSume" class="input" type="text" placeholder="Površina" pattern="[0-9]{1,6}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 6 brojeva')" oninput="setCustomValidity('')" required value="<?php echo $StaraPovrsinaSume; ?>">                  
+                    <label for="PovrsinaSumeID" class="label">Površina ŠumeID*</label>
+                    <select type="combobox" name="PovrsinaSumeID" id="PovrsinaSumeID" class="input" placeholder="--Povrsina--" required>
+                        <?php
+                            if ($UkupanBrojZapisaPovrsina>0) 
+                            {
+                                echo "<option value=\"$StaraPovrsinaSumeID\">$StaraPovrsinaSumeID</option>";
+                                for ($brojacPovrsina = 0; $brojacPovrsina < $UkupanBrojZapisaPovrsina; $brojacPovrsina++) 
+                                    {
+                                        $Povrsina =$PovrsinaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaPovrsina, $brojacPovrsina, 0);							
+                                        echo "<option value=\"$Povrsina\">$Povrsina</option>";						
+                                    }                         
+                            }  
+                        ?>         
+                    </select>
                 </div>
                 <div class="edituj__inputWrap">
                     <label for="Datum" class="label">Datum*</label>                    
@@ -82,20 +106,32 @@
                     <input name="Neto" id="Neto" class="input" type="text" placeholder="Zarada" pattern="[0-9]{1,10}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 10 brojeva')" oninput="setCustomValidity('')" required value="<?php echo $StariNeto; ?>">                    
                 </div>
                 <div class="edituj__inputWrap">
-                    <label for="Trosak" class="label">Troškovi($)*</label>                   
-                    <input name="Trosak" id="Trosak" class="input" type="text"  placeholder="Troškovi u radu" required pattern="[0-9]{1,10}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 10 brojeva')" oninput="setCustomValidity('')" value="<?php echo $StariTrosak; ?>">                  
+                    <label for="TrosakPriRaduID" class="label">TroškoviID*</label>                   
+                   <select type="combobox" name="TrosakPriRaduID" id="TrosakPriRaduID" class="input" placeholder="--Trošak--" required>
+                        <?php
+                            if ($UkupanBrojZapisaTroskova>0) 
+                            {
+                                echo "<option value=\"$StariTrosak\">$StariTrosak</option>";
+                                for ($brojacTroskova = 0; $brojacTroskova < $UkupanBrojZapisaTroskova; $brojacTroskova++) 
+                                    {
+                                        $Trosak =$TrosakObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaTroskova, $brojacTroskova, 0);								
+                                        echo "<option value=\"$Trosak\">$Trosak</option>";						
+                                    }                       
+                            }  
+                        ?>         
+                    </select>
                 </div>
                 <div class="edituj__inputWrap">
                     <label for="Mesto" class="label">Mesto*</label>                  
                         <select type="combobox" name="Mesto" id="Mesto" class="input" placeholder="--Mesto--" required>
                         <?php
-                            if ($UkupanBrojZapisa>0) 
+                            if ($UkupanBrojZapisaMesta>0) 
                             {
                                 echo "<option value=\"$StaroMesto\">$StaroMesto</option>";
-                                for ($brojacMesta = 0; $brojacMesta < $UkupanBrojZapisa; $brojacMesta++) 
+                                for ($brojacMesta = 0; $brojacMesta < $UkupanBrojZapisaMesta; $brojacMesta++) 
                                     {
-                                        $Mesto =$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisa, $brojacMesta, 0);				
-                                        $UkupanBrojSeca=$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisa, $brojacMesta, 1);				
+                                        $Mesto =$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaMesta, $brojacMesta, 0);				
+                                        $UkupanBrojSeca=$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaMesta, $brojacMesta, 1);				
                                         echo "<option value=\"$Mesto\">$Mesto</option>";						
                                     }                         
                             }  

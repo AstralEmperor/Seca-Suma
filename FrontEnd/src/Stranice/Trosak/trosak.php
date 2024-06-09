@@ -9,14 +9,14 @@
     $KonekcijaObject->connect();
     // ako je uspesno ostvarena konekcija na DB uradi sledece
     if($KonekcijaObject->konekcijaDB){
-        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSece.php";
-        $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject,"zakazanaseca");
+        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBTrosak.php";
+        $TroskoviObject = new DBTrosak($KonekcijaObject,"TROSAK");
         if(isset($_GET['filtriraj'])){
             $filter=$_GET['filter'];
-            $ZakazaneSeceObject->DajSvePodatkeOZakazanimSecama($filter);
+            $TroskoviObject->DajSvePodatkeOTroskovima($filter);
         }else{
             $filter=null;
-            $ZakazaneSeceObject->DajSvePodatkeOZakazanimSecama($filter);
+            $TroskoviObject->DajSvePodatkeOTroskovima($filter);
         }
     }else{
         echo"Neuspesna konekcija";
@@ -28,14 +28,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/SECA-SUMA/style.css" type="text/css" rel="stylesheet">
-    <link href="zakazaneSece.css" type="text/css" rel="stylesheet">
-    <title>Zakazane Sece</title>
+    <link href="trosak.css" type="text/css" rel="stylesheet">
+    <title>Troškovi</title>
 </head>
 <body class="glavniKontejner body">
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/header.php"?>
 <section class="seca">
     <div class="seca__h1Wrap">
-        <h1 class="seca__h1">Evidencija Seča Šuma</h1>
+        <h1 class="seca__h1">Evidencija Troškova</h1>
     </div>
         <div class="seca__optionsWrap">
         <label for="pretraga" class="seca__pretragaLabel">Pretraga</label>
@@ -50,7 +50,7 @@
             </form>
         </div>
         <?php
-            if ($ZakazaneSeceObject->BrojZapisa==0)
+            if ($TroskoviObject->BrojZapisa==0)
             {
                 echo "nema zapisa!";
             }
@@ -60,33 +60,24 @@
                echo' <thead class="seca__thead">';
                echo'     <tr class="seca__headTr">';
                echo'         <th>R.Broj</th>';
-               echo'         <th>VrstaDrveta</th>';
-               echo'         <th>PovrsinaSumeID</th>';
-               echo'         <th>Datum</th>';
-               echo'         <th>Neto($)</th>';
-               echo'         <th>TrosakPriRaduID</th>';
-               echo'         <th>Mesto</th>';
+               echo'         <th>Plate</th>';
+               echo'         <th>PrevozniTrošak</th>';
+               echo'         <th>MašineTrošak</th>';
                echo'     </tr>';
                echo' </thead>';
                echo'<tbody class="seca__tableBody">';
 
-               for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceObject->BrojZapisa; $RBZapisa++){
+               for($RBZapisa = 0; $RBZapisa < $TroskoviObject->BrojZapisa; $RBZapisa++){
                 $Rbroj = $RBZapisa + 1;
-                $VrstaDrveta=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,1);
-                $PovrsinaSumeID=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,2);
-                $Datum=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,3);
-                $Neto=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,4);
-                $TrosakPriRaduID=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,5);
-                $Mesto=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,6);
+                $Plate=$TroskoviObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($TroskoviObject->Kolekcija, $RBZapisa,1);
+                $PrevozniTrosak=$TroskoviObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($TroskoviObject->Kolekcija, $RBZapisa,2);
+                $MasineTrosak=$TroskoviObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($TroskoviObject->Kolekcija, $RBZapisa,3);
 
                 echo'<tr>';
                 echo'<td>' .$Rbroj.'</td>';
-                echo'<td>' .$VrstaDrveta. '</td>';
-                echo'<td>' .$PovrsinaSumeID. '</td>';
-                echo'<td>' .$Datum. '</td>';
-                echo'<td>' .$Neto. '</td>';
-                echo'<td>' .$TrosakPriRaduID. '</td>';
-                echo'<td>' .$Mesto. '</td>';
+                echo'<td>' .$Plate. '</td>';
+                echo'<td>' .$PrevozniTrosak. '</td>';
+                echo'<td>' .$MasineTrosak. '</td>';
                 echo'</tr>';
                }
             }
@@ -95,6 +86,6 @@
         </tbody>
     </table>
 </section>
-    <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>
+    <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php" ?></footer>
 </body>
 </html>

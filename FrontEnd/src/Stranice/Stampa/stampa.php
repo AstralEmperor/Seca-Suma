@@ -17,14 +17,14 @@
     
     // ako je uspesno ostvarena konekcija na DB uradi sledece
     if($KonekcijaObject->konekcijaDB){
-        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSeceV.php";
-        $ZakazaneSeceViewObject = new DBZakazaneSece($KonekcijaObject,"zakazanaseca");
+        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSece.php";
+        $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject,"zakazanaseca");
         if(isset($_POST['filtriraj'])){
             $filter=$_POST['filter'];
-            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecama($filter);
+            $ZakazaneSeceObject->DajSvePodatkeOZakazanimSecama($filter);
         }else{
             $filter=null;
-            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecama($filter);
+            $ZakazaneSeceObject->DajSvePodatkeOZakazanimSecama($filter);
         }
     }else{
         echo"Neuspesna konekcija";
@@ -49,7 +49,7 @@
         <p>Predstojeće seče:</p>
     </div>
         <?php
-            if ($ZakazaneSeceViewObject->BrojZapisa==0)
+            if ($ZakazaneSeceObject->BrojZapisa==0)
             {
                 echo "nema zapisa!";
             }
@@ -60,33 +60,36 @@
                echo'     <tr>';
                echo'         <th>R.Broj</th>';
                echo'         <th>VrstaDrveta</th>';
-               echo'         <th>PovrsinaSume</th>';
+               echo'         <th>PovrsinaSumeID</th>';
                echo'         <th>Datum</th>';
                echo'         <th>Neto</th>';
                echo'         <th>Mesto</th>';
-               echo'         <th>Trosak</th>';
+               echo'         <th>TrosakID</th>';
+               echo'         <th>Plaćeno unapred</th>';
                echo'     </tr>';
                echo' </thead>';
                echo'<tbody>';
 
-               for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceViewObject->BrojZapisa; $RBZapisa++){
+               for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceObject->BrojZapisa; $RBZapisa++){
                 $Rbroj = $RBZapisa + 1;
-                $DoprinosID=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,0);
-                $VrstaDrveta=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,1);
-                $PovrsinaSume=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,2);
-                $Datum=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,3);
-                $Neto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,4);
-                $Trosak=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,5);
-                $Mesto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,6);
+                $DoprinosID=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,0);
+                $VrstaDrveta=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,1);
+                $PovrsinaSume=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,2);
+                $Datum=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,3);
+                $Neto=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,4);
+                $Trosak=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,6);
+                $Mesto=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,5);
+                $PlacenoUnapred=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,7);
 
                     echo'<tr>';
                     echo'<td>' .$Rbroj.'</td>';
                     echo'<td>' .$VrstaDrveta. '</td>';
-                    echo'<td>' .$PovrsinaSume. ' m<sup>3</sup></td>';
+                    echo'<td>' .$PovrsinaSume. '</td>';
                     echo'<td>' .$Datum. '</td>';
                     echo'<td>' .$Neto. ' $</td>';
                     echo'<td>' .$Mesto. '</td>';
-                    echo'<td>' .$Trosak. ' $</td>';
+                    echo'<td>' .$Trosak. '</td>';
+                    echo'<td>' .$PlacenoUnapred. '</td>';
                     echo'</tr>';
                 
                }
@@ -94,7 +97,7 @@
                echo'</table>';
                echo'<br>';
                echo'<br>';
-               echo'Ukupan broj Zapisa:'.$ZakazaneSeceViewObject->BrojZapisa;
+               echo'Ukupan broj Zapisa:'.$ZakazaneSeceObject->BrojZapisa;
             }
             $KonekcijaObject->disconnect();
         ?>

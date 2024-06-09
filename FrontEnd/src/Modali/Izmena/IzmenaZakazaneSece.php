@@ -6,14 +6,14 @@
         header('Location:/Seca-Suma/index.php');
     }
 
-    $StariDoprinosID=$_POST['StariDoprinosID'];
-    $DoprinosID=$_POST['DoprinosID'];
+    $StariSecaID=$_POST['StariSecaID'];
+    $SecaID=$_POST['SecaID'];
 
     $VrstaDrveta=$_POST['VrstaDrveta'];
-    $PovrsinaSume=$_POST['PovrsinaSume'];
+    $PovrsinaSumeID=$_POST['PovrsinaSumeID'];
     $Datum=$_POST['Datum'];
     $Neto=$_POST['Neto'];
-    $Trosak=$_POST['Trosak'];
+    $TrosakPriRaduID=$_POST['TrosakPriRaduID'];
     $PlacenoUnapred=$_POST['PlacenoUnapred'];
 
     if(isset($_POST['Mesto'])){
@@ -32,7 +32,7 @@
    if($KonekcijaObject->konekcijaDB){
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSece.php";
     $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject, 'zakazanaseca');
-    $greska = $ZakazaneSeceObject->IzmeniZakazanuSecu($StariDoprinosID, $DoprinosID, $VrstaDrveta, $PovrsinaSume, $Datum, $Neto, $Trosak, $Mesto, $PlacenoUnapred);
+    $greska = $ZakazaneSeceObject->IzmeniZakazanuSecu($StariSecaID, $SecaID, $VrstaDrveta, $PovrsinaSumeID, $Datum, $Neto, $TrosakPriRaduID, $Mesto, $PlacenoUnapred);
    }else{
     echo "Nije uspostavljena konekcija sa bazom podataka!";
    }

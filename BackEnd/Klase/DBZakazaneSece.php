@@ -5,12 +5,12 @@ class DBZakazaneSece extends Tabela
     private $bazapodataka;
     private $UspehKonekcijeNaDBMS;
     //
-    public $DoprinosID;
+    public $SecaID;
     public $VrstaDrveta;
-    public $PovrsinaSume;
+    public $PovrsinaSumeID;
     public $Datum;
     public $Neto;
-    public $Trosak;
+    public $TrosakPriRaduID;
     public $Mesto;
     public $PlacenoUnapred;
 
@@ -21,17 +21,28 @@ class DBZakazaneSece extends Tabela
         $this->UcitajSvePoUpitu($SQL);
         return $this->Kolekcija;
     }
+    
+
+    public function DajSvePodatkeOZakazanimSecama($filterParametar){
+        if(isset($filterParametar)){
+            $upit="select * from `".$this->NazivBazePodataka."`.`ZAKAZANASECA` where `VrstaDrveta`='".$filterParametar."'";
+        }else{
+            $upit="select * from `".$this->NazivBazePodataka."`.`ZAKAZANASECA`";
+        }
+        $this->UcitajSvePoUpitu($upit);
+    }
+
     // ucitava sve sece po vrsti drveta
-    public function UcitajSecuPoId($DoprinosIDParametar)
+    public function UcitajSecuPoId($SecaIDParametar)
     {
-        $SQL = "select * from `ZAKAZANASECA` WHERE `DoprinosID`='".$DoprinosIDParametar."'";
+        $SQL = "select * from `ZAKAZANASECA` WHERE `SecaID`='".$SecaIDParametar."'";
         $this->UcitajSvePoUpitu($SQL);
     }
     // funkcija dodavanje nove sece preuzimanjem odgovarajucih inputa
     public function DodajNovuSecu()
     {
-        $SQL = "INSERT INTO `SUME`.`ZAKAZANASECA` (VrstaDrveta, PovrsinaSume, Datum, Neto, Trosak, Mesto, PlacenoUnapred)
-        VALUES ('$this->VrstaDrveta', '$this->PovrsinaSume','$this->Datum','$this->Neto','$this->Trosak','$this->Mesto', '$this->PlacenoUnapred')";
+        $SQL = "INSERT INTO `SUME`.`ZAKAZANASECA` (VrstaDrveta, PovrsinaSumeID, Datum, Neto, TrosakPriRaduID, Mesto, PlacenoUnapred)
+        VALUES ('$this->VrstaDrveta', '$this->PovrsinaSumeID','$this->Datum','$this->Neto','$this->TrosakPriRaduID','$this->Mesto', '$this->PlacenoUnapred')";
 
         $greska=$this->IzvrsiAktivanSQLUpit($SQL);
 
@@ -40,15 +51,17 @@ class DBZakazaneSece extends Tabela
     // Brise izabranu zakazanu secu gde je ID $idzabrisanje
     public function ObrisiZakazanuSecu($IdZaBrisanje)
     {
-        $SQL = "DELETE FROM `ZAKAZANASECA` WHERE DoprinosID='".$IdZaBrisanje."'";
+        $SQL = "DELETE FROM `ZAKAZANASECA` WHERE SecaID='".$IdZaBrisanje."'";
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
         return $greska;
     }
     // Izmenjuje izabranu zakazanu secu novo unetim podatcima
-    public function IzmeniZakazanuSecu($StariDoprinosID, $DoprinosID, $VrstaDrveta, $PovrsinaSume, $Datum, $Neto, $Trosak, $Mesto, $PlacenoUnapred)
+    public function IzmeniZakazanuSecu($StariSecaID, $SecaID, $VrstaDrveta, $PovrsinaSumeID, $Datum, $Neto, $TrosakPriRaduID, $Mesto, $PlacenoUnapred)
     {
-        $SQL = "UPDATE `ZAKAZANASECA` SET DoprinosID='".$DoprinosID."', VrstaDrveta='".$VrstaDrveta."', PovrsinaSume='".$PovrsinaSume."', Datum='".$Datum."', Neto='".$Neto."', Trosak='".$Trosak."' ,Mesto='".$Mesto."',PlacenoUnapred='".$PlacenoUnapred."'
-        WHERE DoprinosID='".$StariDoprinosID."'";
+        $SQL = "UPDATE `ZAKAZANASECA` SET SecaID='".$SecaID."', 
+        VrstaDrveta='".$VrstaDrveta."', PovrsinaSumeID='".$PovrsinaSumeID."', Datum='".$Datum."', Neto='".$Neto."', TrosakPriRaduID='".$TrosakPriRaduID."' ,
+        Mesto='".$Mesto."',PlacenoUnapred='".$PlacenoUnapred."'
+        WHERE SecaID='".$StariSecaID."'";
         
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
 

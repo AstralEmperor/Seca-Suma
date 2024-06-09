@@ -7,7 +7,9 @@
    <ul class="header__ul">
         <li class="header__listItem"><a href="/SECA-SUMA/welcome.php">Početna</a></li>
         <li class="header__listItem"><a href="/SECA-SUMA/FrontEnd/src/Stranice/ZakazaneSece/zakazaneSeceAdmin.php">Zakazane Seče</a></li>
-        <li class="header__listItem"><a href="/SECA-SUMA/FrontEnd/src/Stranice/Mesta/mestaAdmin.php">Seče po mestima</a></li>
+        <li class="header__listItem"><a href="/SECA-SUMA/FrontEnd/src/Stranice/Mesta/mestaAdmin.php">Mesta</a></li>
+        <li class="header__listItem"><a href="/SECA-SUMA/FrontEnd/src/Stranice/Trosak/trosakAdmin.php">Troškovi</a></li>
+        <li class="header__listItem"><a href="/SECA-SUMA/FrontEnd/src/Stranice/Povrsina/povrsinaAdmin.php">Površine</a></li>
    </ul>
    <ul class="header__ul">
       <li class="header__listItem"><a href="/SECA-SUMA/index.php">Odjava</a></li>

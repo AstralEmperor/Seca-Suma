@@ -1,0 +1,132 @@
+
+.seca{
+    margin-block:2rem;
+    margin-inline:2rem;
+}
+.seca__sadrzaj{
+    width:100%;
+}
+.seca__h1Wrap{
+    width:100%;
+    text-align:center;
+}
+.seca__h1{
+    font-size:1.75rem;
+    margin-bottom:2rem;
+}
+.table{
+    width:100%;
+    text-align:center;
+    align-content:center;
+    border-spacing:0;
+}
+.seca__thead{
+    background-color:var(--tableHeader);
+    color:var(--body);
+}
+td,th{
+    padding-block:0.25rem;
+}
+th{
+    font-size:var(--table-header-Font);
+}
+td{
+    height:1.5rem;
+    width:1rem;
+    font-size:var(--table-txt-Font);
+}
+td > button{
+    border:none;    
+    background-color:transparent;
+    width:15%;
+    height:100%;
+}
+td * img{
+    width:100%;
+    height:100%;
+}
+td * img:hover{
+    cursor:pointer;
+}
+tr{
+    width:100%;
+    background-color:var(--tableRow1);
+}
+thead > tr{
+    background-color:var(--tableHeader);
+}
+tr:nth-child(even){
+    background-color:var(--tableRow2);
+}
+td > form {
+    width:1rem;
+    height:1rem;
+    margin:0 auto;
+}
+td > button {
+    width:1rem;
+    height:1rem;
+    margin:0 auto;
+}
+.input-slika{
+    width:100%;
+    height:100%;
+}
+
+.seca__formDodajOtvori{
+    position:absolute;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    height:100%;
+    z-index:100;
+    inset:0;
+}
+.seca__formEditujOtvori{
+    position:absolute;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    height:100%;
+    z-index:100;
+    inset:0;
+}
+.seca__activeForm{
+    display:flex;
+}
+.seca__optionsWrap{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    margin-bottom:1rem;
+}
+.seca__pretragaBar{
+    width:fit-content;
+    height:fit-content;
+    display:flex;
+    align-items:center;
+}
+.seca__pretragaForm{
+    gap:0.5rem;
+    display:flex;   
+}
+.seca__filterBtn{
+    width:3rem;
+    height:1.5rem;
+    background-color:var(--search-wrap-bg);
+    border:none;
+}
+.seca__filterBtn > img{
+    width:100%;
+    height:100%;
+}
+.seca__dodajNovu{
+    background-color:var(--button-clr-primary);
+    color:var(--base-txt-white-variety);
+}
+.seca__sviPodatci{
+    background-color:var(--button-clr-primary);
+    color:var(--base-txt-white-variety);
+}

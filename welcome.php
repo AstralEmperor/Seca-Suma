@@ -26,7 +26,7 @@
 <body class="glavniKontejner body">
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/headerAdmin.php"?>
         <section class="index">
-            <aside class="leviMeni">
+        <aside class="leviMeni">
                 <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/LeviMeni/leviMeni.php"?>
             </aside>
             <div class="naslov__glavniDeo">

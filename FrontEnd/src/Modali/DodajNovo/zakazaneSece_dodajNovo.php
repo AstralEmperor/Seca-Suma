@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
     <head>
         <link href="/SECA-SUMA/style.css" type="text/css" rel="stylesheet">
-        <link href="/SECA-SUMA/FrontEnd/src/Modali/ZakazaneSece_noveSece/zakazaneSece_dodajNovo.css" type="text/css" rel="stylesheet">
+        <link href="/SECA-SUMA/FrontEnd/src/Modali/DodajNovo/dodajNovo.css" type="text/css" rel="stylesheet">
     </head>
     <section class="dodajNovi">
         <form class="dodajNovi__form" action="/Seca-Suma/FrontEnd/src/Modali/Snimanje/snimanjeSP.php" method="POST">
@@ -19,8 +19,19 @@
                     <input name="vrstaDrveta" id="vrstaDrveta" type="text" class="input" placeholder="Vrsta Drveta" pattern="[A-Za-z]{1,20}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 20 karaktera')" oninput="setCustomValidity('')"  required>
                 </div>
                 <div class="dodajNovi__inputWrap">
-                    <label for="povrsinaSume" class="label">Površina Šume(m3)*</label>
-                    <input name="povrsinaSume" id="povrsinaSume" class="input" type="text" placeholder="Površina" pattern="[0-9]{1,6}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 6 brojeva')" oninput="setCustomValidity('')" required>
+                    <label for="PovrsinaSumeID" class="label">Površina Šume ID*</label>
+                    <select type="combobox" name="PovrsinaSumeID" id="PovrsinaSumeID" class="input" placeholder="--Povrsina--" required>
+                    <?php
+                            if ($UkupanBrojZapisaPovrsina>0) 
+                            {		
+                                for ($brojacPovrsina = 0; $brojacPovrsina < $UkupanBrojZapisaPovrsina; $brojacPovrsina++) 
+                                    {
+                                        $Povrsina=$PovrsinaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaPovrsina, $brojacPovrsina, 0);								
+                                        echo "<option value=\"$Povrsina\">$Povrsina</option>";						
+                                    }                         
+                            }  
+                        ?>         
+                    </select>
                 </div>
                 <div class="dodajNovi__inputWrap">
                     <label for="datum" class="label">Datum*</label>
@@ -31,19 +42,30 @@
                     <input name="neto" id="neto" class="input" type="text" placeholder="Zarada" pattern="[0-9]{1,10}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 10 brojeva')" oninput="setCustomValidity('')" required>
                 </div>
                 <div class="dodajNovi__inputWrap">
-                    <label for="trosak" class="label">Troškovi($)*</label>
-                    <input name="trosak" id="trosak" class="input" type="text"  placeholder="Troškovi u radu" required pattern="[0-9]{1,10}" oninvalid="this.setCustomValidity('Molimo vas unesite 1 do 10 brojeva')" oninput="setCustomValidity('')">
+                    <label for="TrosakPriRaduID" class="label">Troškovi ID*</label>
+                    <select type="combobox" name="TrosakPriRaduID" id="TrosakPriRaduID" class="input" placeholder="--Trosak--" required>
+                    <?php
+                            if ($UkupanBrojZapisaTroskova>0) 
+                            {		
+                                for ($brojacTroskova = 0; $brojacTroskova < $UkupanBrojZapisaTroskova; $brojacTroskova++) 
+                                    {
+                                        $TrosakID=$TrosakObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaTroskova, $brojacTroskova, 0);								
+                                        echo "<option value=\"$TrosakID\">$TrosakID</option>";						
+                                    }                         
+                            }  
+                        ?>         
+                    </select>
                 </div>
                 <div class="dodajNovi__inputWrap">
                     <label for="mesto" class="label">Mesto*</label>
                     <select type="combobox" name="mesto" id="mesto" class="input" placeholder="--Mesto--" required>
                     <?php
-                            if ($UkupanBrojZapisa>0) 
+                            if ($UkupanBrojZapisaMesta>0) 
                             {		
-                                for ($brojacMesta = 0; $brojacMesta < $UkupanBrojZapisa; $brojacMesta++) 
+                                for ($brojacMesta = 0; $brojacMesta < $UkupanBrojZapisaMesta; $brojacMesta++) 
                                     {
-                                        $Mesto =$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisa, $brojacMesta, 0);				
-                                        $UkupanBrojSeca=$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisa, $brojacMesta, 1);				
+                                        $Mesto =$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaMesta, $brojacMesta, 0);				
+                                        $UkupanBrojSeca=$MestoObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaMesta, $brojacMesta, 1);				
                                         echo "<option value=\"$Mesto\">$Mesto</option>";						
                                     }                         
                             }  

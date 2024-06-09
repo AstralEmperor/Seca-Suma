@@ -2,14 +2,14 @@ CREATE DATABASE `SUME` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table `SUME`.`ZAKAZANASECA`
 (
-    DoprinosID          int not null AUTO_INCREMENT PRIMARY KEY,
+    SecaID          int not null AUTO_INCREMENT PRIMARY KEY,
     VrstaDrveta         varchar(30) not null,
-    PovrsinaSume        FLOAT not null, 
+    PovrsinaSumeID      int not null, 
     Datum               date not null,    
     Neto                int not null, 
+    TrosakPriRaduID     int not null,
     Mesto               varchar(30) not null,  
-    Trosak              int not null,
-    PlacenoUnapred      int null      
+    PlacenoUnapred      int null
 );
 
 create table `SUME`.`MESTO`
@@ -18,7 +18,27 @@ create table `SUME`.`MESTO`
     UkupanBrojSeca      int not null
 );
 
-alter table `SUME`.`ZAKAZANASECA` add constraint pripada foreign key(Mesto) references `SUME`.`MESTO` (Mesto) on delete restrict on update cascade;
+create table `SUME`.`TROSAK`
+(
+    trosakID        int not null AUTO_INCREMENT PRIMARY KEY,
+    ukupanTrosak    int not null,
+    plate           int not null,
+    prevozniTrosak  int not null,
+    masineTrosak    int not null
+);
+
+create table `SUME`.`POVRSINA`
+(
+    povrsinaID      int not null AUTO_INCREMENT PRIMARY KEY,
+    povrsinaZaSecu  FLOAT not null,
+    ukupnaPovrsina  FLOAT not null,
+    mladice         FLOAT not null,
+    praznina        FLOAT not null
+);
+
+alter table `SUME`.`ZAKAZANASECA` add constraint pripada foreign key (Mesto) references `SUME`.`MESTO` (Mesto) on delete restrict on update cascade;
+alter table `SUME`.`ZAKAZANASECA` add constraint potrosnja foreign key (TrosakPriRaduID) references `SUME`.`TROSAK` (trosakID) on delete restrict on update cascade;
+alter table `SUME`.`ZAKAZANASECA` add constraint povrsina foreign key (PovrsinaSumeID) references `SUME`.`POVRSINA` (povrsinaID) on delete restrict on update cascade;
 
 create table `SUME`.`KORISNIK`
 (
@@ -42,10 +62,24 @@ values
 ("Zrenjanin", 2),
 ("Novi Sad", 1);
 
-insert into `SUME`.`ZAKAZANASECA` (VrstaDrveta, PovrsinaSume, Datum, Neto, Mesto, Trosak, PlacenoUnapred) 
+insert into `SUME`.`TROSAK` (ukupanTrosak, plate, prevozniTrosak,  masineTrosak)
+values
+(72772, 50000, 7772, 15000),
+(586050, 150000, 36050, 400000),
+(38000, 20000, 5500, 12500),
+(32600, 15500, 3100, 14000);
+
+insert into `SUME`.`POVRSINA` (ukupnaPovrsina, mladice,  praznina, povrsinaZaSecu)
+values
+(9, 2, 1, 6),
+(12, 2 ,1, 10),
+(9, 4, 0, 5),
+(11, 3, 2, 7);
+
+insert into `SUME`.`ZAKAZANASECA` (VrstaDrveta, PovrsinaSumeID, Datum, Neto, TrosakPriRaduID, Mesto, PlacenoUnapred) 
 values 
-("Smrča", 6, "2024-05-12", 11332, 'Niš', 72772, 25000),
-("Bukva", 10, "2024-08-05", 13865,'Zrenjanin', 586050, 0),
-("Bor", 5, "2024-03-24", 4134,'Novi Sad', 38000, 14000),
-("Cer", 6, "2024-10-24", 10350, 'Zrenjanin', 32600, 0);
+("Smrča", 1, "2024-05-12", 11332, 1,'Niš', 25000),
+("Bukva", 2, "2024-08-05", 13865, 2, 'Zrenjanin', 0),
+("Bor", 3, "2024-03-24", 4134, 3, 'Novi Sad', 14000),
+("Cer", 4, "2024-10-24", 10350, 4, 'Zrenjanin', 0);
 

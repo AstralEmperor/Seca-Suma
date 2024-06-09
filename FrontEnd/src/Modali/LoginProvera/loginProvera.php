@@ -20,9 +20,9 @@ session_start();
             $_SESSION["korisnik"] = $objKorisnik->PreuzmiImeIPrezimePrijavljenogKorisnika($loginUserName,$loginPassword);
             $_SESSION["ovlascenje"] = $objKorisnik->PreuzmiOvlascenjeKorisnika($loginUserName,$loginPassword);
 
-            header('Location:/Seca-Suma/welcome.php');
+            header('Location:/SECA-SUMA/welcome.php');
         }else{
-            header('Location:/Seca-Suma/index.php');
+            header('Location:/SECA-SUMA/index.php');
         }
     }else{
         echo"Neuspeh konekcije na bazu podataka!!!";

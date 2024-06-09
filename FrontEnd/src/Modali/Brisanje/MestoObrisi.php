@@ -7,10 +7,10 @@ $korisnik=$_SESSION["korisnik"];
         header('Location:/Seca-Suma/index.php');
     }
 
-    $Mesto=$_POST['mesto'];
+    $Mesto=$_POST['Mesto'];
 
     // uzima ID i brise ceo objekat iz data baze
-    $IdZaBrisanje=$_POST['SecaID'];
+    $IdZaBrisanje=$_POST['povrsinaID'];
 
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaKonekcija.php";
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/BaznaTabela.php";
@@ -20,18 +20,17 @@ $korisnik=$_SESSION["korisnik"];
    $KonekcijaObject->connect();
 
    if($KonekcijaObject->konekcijaDB){
-    require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSece.php";
-    $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject, 'zakazanaseca');
+    require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBMesta.php";
+    $MestoObject = new DBMesto($KonekcijaObject, 'mesto');
 
      // dekrementacija broja seca kroz klasu Mesto
      echo $Mesto;
-    require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBMesta.php";;
-    $MestoObject = new DBMesto($KonekcijaObject, 'mesto');
-    $greska2=$MestoObject->DekrementirajUkupanBrojSecaPoMestu($Mesto);
+    require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSece.php";;
+    $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject, 'zakazanaSeca');
 
-    $greska=$ZakazaneSeceObject->ObrisiZakazanuSecu($IdZaBrisanje);
+    $greska=$ZakazaneSeceObject->ObrisiMesto($IdZaBrisanje);
    }
    $KonekcijaObject->disconnect();
    
-   header('Location:/SECA-SUMA/FrontEnd/src/Stranice/ZakazaneSece/zakazaneSeceAdmin.php');
+   header('Location:/SECA-SUMA/FrontEnd/src/Stranice/Mesto/mestoAdmin.php');
 ?>

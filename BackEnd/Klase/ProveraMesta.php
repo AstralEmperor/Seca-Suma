@@ -14,9 +14,9 @@
         $maxBrojSeca=$xml->MaxBrojSeca;
 
         // Preuzimanje trenutnnog broja seca po mestu
-        $NazivTrazenogPolja = "count(`DoprinosID`)";
+        $NazivTrazenogPolja = "count(`SecaID`)";
         $KriterijumFiltriranja = "`Mesto`='".$MestoSeceParametar."'";
-        $KriterijumSortiranja="`DoprinosID`";
+        $KriterijumSortiranja="`SecaID`";
         $trenutanBrojSeca = $this->DajVrednostJednogPoljaPrvogZapisa($NazivTrazenogPolja, $KriterijumFiltriranja, $KriterijumSortiranja);
 
         if($trenutanBrojSeca < $maxBrojSeca){

@@ -13,11 +13,11 @@
     }	
 
     $VrstaDrveta=$_POST['vrstaDrveta'];
-    $PovrsinaSume=$_POST['povrsinaSume'];
+    $PovrsinaSumeID=$_POST['PovrsinaSumeID'];
     $Datum=$_POST['datum']; 
     $Neto=$_POST['neto'];
     $Mesto=$_POST['mesto']; 
-    $Trosak=$_POST['trosak'];
+    $TrosakPriRaduID=$_POST['TrosakPriRaduID'];
     $PlacenoUnapred=$_POST['placenoUnapred'];  
 	   
 	   //KONEKCIJA KA SERVERU
@@ -43,11 +43,11 @@
             require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSeceSP.php";
             $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject, 'zakazanaseca');
             $ZakazaneSeceObject->VrstaDrveta=$VrstaDrveta;
-            $ZakazaneSeceObject->PovrsinaSume=$PovrsinaSume;
+            $ZakazaneSeceObject->PovrsinaSumeID=$PovrsinaSumeID;
             $ZakazaneSeceObject->Datum=$Datum;
             $ZakazaneSeceObject->Neto=$Neto;
             $ZakazaneSeceObject->Mesto=$Mesto;
-            $ZakazaneSeceObject->Trosak=$Trosak;
+            $ZakazaneSeceObject->TrosakPriRaduID=$TrosakPriRaduID;
             $ZakazaneSeceObject->PlacenoUnapred=$PlacenoUnapred;
             $greska1 = $ZakazaneSeceObject->DodajNovuSecu();
                 
@@ -68,8 +68,8 @@
 	
 	// prikaz uspeha aktivnosti	
 	
-	if ($UtvrdjenaGreska) {
-	echo "Greska $UtvrdjenaGreska";	
+	if ($UtvrdjenaGreska){
+	 echo "Greska $UtvrdjenaGreska";
      }	
 	 else
 	 {

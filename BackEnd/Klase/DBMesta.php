@@ -41,17 +41,13 @@ public $UkupanBrojSeca;
 
         return $greska;
     }
-    // Vraca filtriranu kolekciju mesta
-    public function DajKolekcijuMestaFiltrirano($filterPolje, $filterVrednost, $nacinFiltriranja, $Sortiranje)
-    {
-        if($nacinFiltriranja == "like"){
-            $SQL = "select * from * `MESTO` WHERE $filterPolje like `%".$filterVrednost."%' ORDER BY $Sortiranje";
+    public function DajSvaMestaFiltrirano($filterParametar){
+        if(isset($filterParametar)){
+            $upit="select * from `".$this->NazivBazePodataka."`.`MESTO` where `Mesto`='".$filterParametar."'";
+        }else{
+            $upit="select * from `".$this->NazivBazePodataka."`.`MESTO`";
         }
-        else{
-            $SQL = "select * from `MESTO` WHERE $filterPolje = '".$filterVrednost."' ORDER BY $Sortiranje";
-        }
-        $this->UcitajSvePoUpitu($SQL);
-        return $this->Kolekcija;
+        $this->UcitajSvePoUpitu($upit);
     }
 // Vraca ukupan broj svih mesta
     public function DajUkupanBrojSvihMesta($KolekcijaZapisa)

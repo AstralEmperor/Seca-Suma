@@ -16,14 +16,14 @@
     $KonekcijaObject->connect();
     // ako je uspesno ostvarena konekcija na DB uradi sledece
     if($KonekcijaObject->konekcijaDB){
-        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSeceV.php";
-        $ZakazaneSeceViewObject = new DBZakazaneSece($KonekcijaObject,"zakazanaseca");
+        require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBZakazaneSece.php";
+        $ZakazaneSeceObject = new DBZakazaneSece($KonekcijaObject,"zakazanaseca");
         if(isset($_GET['filtriraj'])){
             $filter=$_GET['filter'];
-            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecama($filter);
+            $ZakazaneSeceObject->DajSvePodatkeOZakazanimSecama($filter);
         }else{
             $filter=null;
-            $ZakazaneSeceViewObject->DajSvePodatkeOZakazanimSecama($filter);
+            $ZakazaneSeceObject->DajSvePodatkeOZakazanimSecama($filter);
         }
     }else{
         echo"Neuspesna konekcija";
@@ -31,8 +31,20 @@
     require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBMesta.php";
     $MestoObject = new DBMesto($KonekcijaObject, "mesto");
     $MestoObject->UcitajKolekcijuSvihMesta();
-    $KolekcijaZapisa = $MestoObject->Kolekcija;
-    $UkupanBrojZapisa = $MestoObject->BrojZapisa;
+    $KolekcijaZapisaMesta = $MestoObject->Kolekcija;
+    $UkupanBrojZapisaMesta = $MestoObject->BrojZapisa;
+
+    require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBTrosak.php";
+    $TrosakObject = new DBTrosak($KonekcijaObject, "trosak");
+    $TrosakObject->UcitajKolekcijuSvihTroskova();
+    $KolekcijaZapisaTroskova = $TrosakObject->Kolekcija;
+    $UkupanBrojZapisaTroskova = $TrosakObject->BrojZapisa;
+
+    require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/BackEnd/Klase/DBPovrsina.php";
+    $PovrsinaObject = new DBPovrsina($KonekcijaObject, "povrsina");
+    $PovrsinaObject->UcitajKolekcijuSvihPovrsina();
+    $KolekcijaZapisaPovrsina = $PovrsinaObject->Kolekcija;
+    $UkupanBrojZapisaPovrsina = $PovrsinaObject->BrojZapisa;
 ?>
 <!DOCTYPE html>
 <html lang="sr" class="html">
@@ -46,7 +58,7 @@
 <body class="glavniKontejner seca body">
     <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Header/headerAdmin.php"?>
   <section class="index">
-    <div class="sadrzajAside">
+  <div class="sadrzajAside">
             <aside class="leviMeni">
                 <?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/LeviMeni/leviMeni.php"?>
             </aside>
@@ -77,7 +89,7 @@
             </form>
         </div>
         <?php
-            if ($ZakazaneSeceViewObject->BrojZapisa==0)
+            if ($ZakazaneSeceObject->BrojZapisa==0)
             {
                 echo "nema zapisa!";
             }
@@ -88,11 +100,11 @@
                echo'     <tr class="seca__headTr">';
                echo'         <th>R.Broj</th>';
                echo'         <th>VrstaDrveta</th>';
-               echo'         <th>PovrsinaSume(m3)</th>';
+               echo'         <th>PovrsinaSumeID</th>';
                echo'         <th>Datum</th>';
                echo'         <th>Neto($)</th>';
-               echo'         <th>Trosak($)</th>';
                echo'         <th>Mesto</th>';
+               echo'         <th>Trosak Pri Radu ID</th>';
                if($ovlascenje === "admin"){
                echo'         <th>Edituj</th>';
                echo'         <th>Obrisi</th>';
@@ -101,27 +113,27 @@
                echo' </thead>';
                echo'<tbody class="seca__tableBody">';
 
-               for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceViewObject->BrojZapisa; $RBZapisa++){
+               for($RBZapisa = 0; $RBZapisa < $ZakazaneSeceObject->BrojZapisa; $RBZapisa++){
                 $Rbroj = $RBZapisa + 1;
-                $DoprinosID=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,0);
-                $VrstaDrveta=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,1);
-                $PovrsinaSume=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,2);
-                $Datum=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,3);
-                $Neto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,4);
-                $Trosak=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,5);
-                $Mesto=$ZakazaneSeceViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceViewObject->Kolekcija, $RBZapisa,6);
+                $SecaID=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,0);
+                $VrstaDrveta=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,1);
+                $PovrsinaSumeID=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,2);
+                $Datum=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,3);
+                $Neto=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,4);
+                $TrosakPriRaduID=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,5);
+                $Mesto=$ZakazaneSeceObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($ZakazaneSeceObject->Kolekcija, $RBZapisa,6);
                 
                 echo'<tr>';
                 echo'<td>' .$Rbroj.'</td>';
                 echo'<td>' .$VrstaDrveta. '</td>';
-                echo'<td>' .$PovrsinaSume. '</td>';
+                echo'<td>' .$PovrsinaSumeID. '</td>';
                 echo'<td>' .$Datum. '</td>';
                 echo'<td>' .$Neto. '</td>';
-                echo'<td>' .$Trosak. '</td>';
+                echo'<td>' .$TrosakPriRaduID. '</td>';
                 echo'<td>' .$Mesto. '</td>';
                 if($ovlascenje === "admin"){
-                echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Izmena/editovanjeSeca.php" class="otvaranjeEditFormeBtn" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input class="input-slika" type="image" src="/SECA-SUMA/FrontEnd/Assets/edit-text.png" name="EditujSecu"></form></td>';
-                echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Brisanje/ZakazaneSeceobrisi.php" method="POST"><input type="hidden" name="DoprinosID" value='.$DoprinosID.'><input type="hidden" name="mesto" value='.$Mesto.'><input class="input-slika" type="image"src="/SECA-SUMA/FrontEnd/Assets/trash-can.png" name="ObrisiSecu"></form></td>';
+                echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Izmena/editovanjeSeca.php" class="otvaranjeEditFormeBtn" method="POST"><input type="hidden" name="SecaID" value='.$SecaID.'><input class="input-slika" type="image" src="/SECA-SUMA/FrontEnd/Assets/edit-text.png" name="EditujSecu"></form></td>';
+                echo'<td><form action="/SECA-SUMA/FrontEnd/src/Modali/Brisanje/ZakazaneSeceobrisi.php" method="POST"><input type="hidden" name="SecaID" value='.$SecaID.'><input type="hidden" name="mesto" value='.$Mesto.'><input class="input-slika" type="image"src="/SECA-SUMA/FrontEnd/Assets/trash-can.png" name="ObrisiSecu"></form></td>';
                 }
                 echo'</tr>';
                }
@@ -132,7 +144,7 @@
     </table>
 </div>
 </section>
-<div class="seca__formDodajOtvori"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/ZakazaneSece_noveSece/zakazaneSece_dodajNovo.php"?></div>
+<div class="seca__formDodajOtvori"><?php include $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Modali/DodajNovo/zakazaneSece_dodajNovo.php"?></div>
 
     <footer><?php require $_SERVER['DOCUMENT_ROOT'] . "/SECA-SUMA/FrontEnd/src/Delovi/Footer/footer.php"?></footer>
 </body>
